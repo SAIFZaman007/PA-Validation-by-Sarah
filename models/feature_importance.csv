@@ -1,0 +1,17 @@
+Feature,Importance
+category_radiology,0.5032633186878387
+meets_numeric_requirements,0.4457898755298016
+bmi,0.4442420231663173
+insurer_bupa,0.3540302253957038
+patient_gender_male,0.31476594303597494
+category_orthopedic,0.27444887134831114
+num_prerequisites,0.2742140884173852
+therapy_duration_weeks,0.012511377017535236
+patient_age,0.004997724310009648
+hour_of_day,0.0022304378503217735
+day_of_week,0.0005869573303412748
+requires_pa,0.00011739146586894069
+has_diagnosis,0.00011739146586894069
+prerequisite_compliance_rate,0.0
+imaging_completed,0.0
+insurer_tawuniya,0.0

@@ -1,0 +1,68 @@
+========================================================================
+  SYNTHETIC INSURANCE POLICY DOCUMENT
+========================================================================
+  Policy ID      : POL-76062
+  Insurer        : Bupa Arabia
+  Effective Date : 2024-01-01
+  Version        : 2024.1
+  Source         : Auto-Generated Synthetic Policy
+========================================================================
+
+  COVERAGE RULES
+  ------------------------------------------------------------------------
+
+  Rule 1: MRI Lower Extremity
+    CPT Code            : 73721
+    Category            : Radiology
+    Requires Prior Auth : Yes
+    Prerequisites       : Conservative therapy failed; X-ray completed
+    Coverage Criteria   : Prior authorization is mandatory before procedure. Patient
+                          must meet the following conditions:   - Conservative therapy
+                          failed   - X-ray completed
+    Estimated Cost      : SAR 1,500 - 3,000
+
+  Rule 2: Tissue Examination
+    CPT Code            : 88305
+    Category            : Pathology
+    Requires Prior Auth : No
+    Prerequisites       : None
+    Coverage Criteria   : No prior authorization required.
+    Estimated Cost      : SAR 200 - 500
+
+  Rule 3: Arthroscopy Shoulder
+    CPT Code            : 29827
+    Category            : Orthopedic Surgery
+    Requires Prior Auth : Yes
+    Prerequisites       : Failed physical therapy for 12 weeks; MRI documented tear
+    Coverage Criteria   : Prior authorization is mandatory before procedure. Patient
+                          must meet the following conditions:   - Failed physical
+                          therapy for 12 weeks   - MRI documented tear Documented
+                          physical examination required. Imaging studies must be
+                          submitted with request.
+    Estimated Cost      : SAR 8,000 - 15,000
+
+  Rule 4: Office Visit - Established Patient
+    CPT Code            : 99213
+    Category            : Primary Care
+    Requires Prior Auth : No
+    Prerequisites       : None
+    Coverage Criteria   : No prior authorization required.
+    Estimated Cost      : SAR 100 - 200
+
+  Rule 5: Colonoscopy
+    CPT Code            : 45378
+    Category            : Gastroenterology
+    Requires Prior Auth : Yes
+    Prerequisites       : Age >= 45 OR family history OR symptoms
+    Coverage Criteria   : Prior authorization is mandatory before procedure. Patient
+                          must meet the following conditions:   - Age >= 45 OR family
+                          history OR symptoms
+    Estimated Cost      : SAR 2,000 - 4,000
+
+========================================================================
+  DISCLAIMER
+  ------------------------------------------------------------------------
+  This document was auto-generated for demonstration and testing
+  purposes only.  It does not constitute a real insurance policy.
+  Do not use for actual clinical or administrative decisions.
+========================================================================

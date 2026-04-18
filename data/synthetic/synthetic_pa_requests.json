@@ -1,0 +1,3470 @@
+[
+  {
+    "request_id": "PA-343501",
+    "timestamp": "2026-04-15T13:36:44.929199",
+    "patient": {
+      "patient_id": "PAT-479265",
+      "name": "Ahmed Al-Ghamdi",
+      "age": 41,
+      "gender": "Female",
+      "insurance_id": "INS-9295088"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M25.561",
+      "description": "Pain in right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 24,
+      "imaging_completed": null,
+      "bmi": 39.8
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Ghamdi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-78157"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-260533",
+    "timestamp": "2026-04-15T13:36:44.929199",
+    "patient": {
+      "patient_id": "PAT-977818",
+      "name": "Mohammed Al-Otaibi",
+      "age": 71,
+      "gender": "Female",
+      "insurance_id": "INS-1254989"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M25.561",
+      "description": "Pain in right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 4,
+      "imaging_completed": null,
+      "bmi": 28.8
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Malki",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-83743"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-404657",
+    "timestamp": "2026-04-15T13:36:44.929199",
+    "patient": {
+      "patient_id": "PAT-633985",
+      "name": "Mohammed Al-Zahrani",
+      "age": 29,
+      "gender": "Female",
+      "insurance_id": "INS-7690403"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M54.5",
+      "description": "Low back pain"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 6,
+      "imaging_completed": null,
+      "bmi": 27.8
+    },
+    "requesting_physician": {
+      "name": "Dr. Ahmed Al-Otaibi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-28485"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-443012",
+    "timestamp": "2026-04-15T13:36:44.929199",
+    "patient": {
+      "patient_id": "PAT-957943",
+      "name": "Sara Al-Malki",
+      "age": 40,
+      "gender": "Female",
+      "insurance_id": "INS-8742143"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "K92.1",
+      "description": "Gastrointestinal hemorrhage"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 5,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Malki",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-74634"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-266244",
+    "timestamp": "2026-04-15T13:36:44.929199",
+    "patient": {
+      "patient_id": "PAT-940941",
+      "name": "Huda Al-Zahrani",
+      "age": 55,
+      "gender": "Male",
+      "insurance_id": "INS-9911700"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "R07.9",
+      "description": "Chest pain, unspecified"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed physical therapy for 12 weeks",
+        "MRI documented tear"
+      ],
+      "conservative_therapy_duration_weeks": 1,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Ahmed Al-Malki",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-51350"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-457394",
+    "timestamp": "2026-04-15T13:36:44.929199",
+    "patient": {
+      "patient_id": "PAT-454447",
+      "name": "Sara Al-Harbi",
+      "age": 59,
+      "gender": "Male",
+      "insurance_id": "INS-4587846"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "S83.511A",
+      "description": "Sprain of anterior cruciate ligament of right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 13,
+      "imaging_completed": null,
+      "bmi": 32.4
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Ghamdi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-98116"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-415505",
+    "timestamp": "2026-04-15T13:36:44.929199",
+    "patient": {
+      "patient_id": "PAT-457375",
+      "name": "Abdullah Al-Otaibi",
+      "age": 46,
+      "gender": "Female",
+      "insurance_id": "INS-9371150"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "K92.1",
+      "description": "Gastrointestinal hemorrhage"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 10,
+      "imaging_completed": null,
+      "bmi": 34.1
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Otaibi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-21426"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-845303",
+    "timestamp": "2026-04-15T13:36:44.929199",
+    "patient": {
+      "patient_id": "PAT-526568",
+      "name": "Fatima Al-Zahrani",
+      "age": 33,
+      "gender": "Female",
+      "insurance_id": "INS-1706547"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M25.561",
+      "description": "Pain in right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 2,
+      "imaging_completed": null,
+      "bmi": 29.3
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Qahtani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-16703"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-382228",
+    "timestamp": "2026-04-15T13:36:44.929199",
+    "patient": {
+      "patient_id": "PAT-350586",
+      "name": "Fatima Al-Otaibi",
+      "age": 27,
+      "gender": "Male",
+      "insurance_id": "INS-6824332"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "45378",
+      "name": "Colonoscopy",
+      "category": "Gastroenterology"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Qahtani",
+      "specialty": "Gastroenterology",
+      "license_number": "MD-43149"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-635256",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-111683",
+      "name": "Mohammed Al-Otaibi",
+      "age": 37,
+      "gender": "Female",
+      "insurance_id": "INS-5351508"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "R07.9",
+      "description": "Chest pain, unspecified"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 21,
+      "imaging_completed": null,
+      "bmi": 43.8
+    },
+    "requesting_physician": {
+      "name": "Dr. Huda Al-Malki",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-85982"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-162481",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-841930",
+      "name": "Khalid Al-Qahtani",
+      "age": 52,
+      "gender": "Female",
+      "insurance_id": "INS-4261259"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 17,
+      "imaging_completed": null,
+      "bmi": 32.7
+    },
+    "requesting_physician": {
+      "name": "Dr. Khalid Al-Otaibi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-29669"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-212922",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-340908",
+      "name": "Ahmed Al-Qahtani",
+      "age": 40,
+      "gender": "Female",
+      "insurance_id": "INS-6530292"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 16,
+      "imaging_completed": null,
+      "bmi": 44.2
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Harbi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-43140"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-329276",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-904718",
+      "name": "Khalid Al-Malki",
+      "age": 65,
+      "gender": "Female",
+      "insurance_id": "INS-3900927"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M54.5",
+      "description": "Low back pain"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 15,
+      "imaging_completed": null,
+      "bmi": 35.2
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Ghamdi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-36293"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-743590",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-969482",
+      "name": "Khalid Al-Otaibi",
+      "age": 62,
+      "gender": "Male",
+      "insurance_id": "INS-2236100"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "45378",
+      "name": "Colonoscopy",
+      "category": "Gastroenterology"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Otaibi",
+      "specialty": "Gastroenterology",
+      "license_number": "MD-54973"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-194363",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-979579",
+      "name": "Noura Al-Harbi",
+      "age": 45,
+      "gender": "Male",
+      "insurance_id": "INS-1419717"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M54.5",
+      "description": "Low back pain"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 14,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Zahrani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-10077"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-416886",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-670008",
+      "name": "Khalid Al-Otaibi",
+      "age": 57,
+      "gender": "Male",
+      "insurance_id": "INS-6623486"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months"
+      ],
+      "conservative_therapy_duration_weeks": 15,
+      "imaging_completed": null,
+      "bmi": 35.7
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Ghamdi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-91824"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-665023",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-311947",
+      "name": "Mohammed Al-Ghamdi",
+      "age": 68,
+      "gender": "Female",
+      "insurance_id": "INS-7661934"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "45378",
+      "name": "Colonoscopy",
+      "category": "Gastroenterology"
+    },
+    "diagnosis": {
+      "icd10_code": "R07.9",
+      "description": "Chest pain, unspecified"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Age >= 45 OR family history OR symptoms"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Malki",
+      "specialty": "Gastroenterology",
+      "license_number": "MD-26036"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-471442",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-298696",
+      "name": "Fatima Al-Harbi",
+      "age": 52,
+      "gender": "Female",
+      "insurance_id": "INS-1006785"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M25.561",
+      "description": "Pain in right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed physical therapy for 12 weeks",
+        "MRI documented tear"
+      ],
+      "conservative_therapy_duration_weeks": 18,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Khalid Al-Malki",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-20913"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-591391",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-122705",
+      "name": "Huda Al-Malki",
+      "age": 35,
+      "gender": "Female",
+      "insurance_id": "INS-2968132"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "45378",
+      "name": "Colonoscopy",
+      "category": "Gastroenterology"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Harbi",
+      "specialty": "Gastroenterology",
+      "license_number": "MD-33276"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-112708",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-346111",
+      "name": "Fatima Al-Harbi",
+      "age": 41,
+      "gender": "Female",
+      "insurance_id": "INS-5214637"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "S83.511A",
+      "description": "Sprain of anterior cruciate ligament of right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 22,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Qahtani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-68395"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-280051",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-704049",
+      "name": "Noura Al-Otaibi",
+      "age": 43,
+      "gender": "Male",
+      "insurance_id": "INS-6041153"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "M25.561",
+      "description": "Pain in right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Malki",
+      "specialty": "Radiology",
+      "license_number": "MD-52767"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-279735",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-586302",
+      "name": "Fatima Al-Harbi",
+      "age": 30,
+      "gender": "Male",
+      "insurance_id": "INS-2450505"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "S83.511A",
+      "description": "Sprain of anterior cruciate ligament of right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 9,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Zahrani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-23398"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-439952",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-319194",
+      "name": "Ahmed Al-Qahtani",
+      "age": 45,
+      "gender": "Male",
+      "insurance_id": "INS-6302206"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 1,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Huda Al-Harbi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-63223"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-760582",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-621321",
+      "name": "Fatima Al-Qahtani",
+      "age": 51,
+      "gender": "Male",
+      "insurance_id": "INS-4717405"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "K92.1",
+      "description": "Gastrointestinal hemorrhage"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Malki",
+      "specialty": "Radiology",
+      "license_number": "MD-42087"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-461199",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-868536",
+      "name": "Sara Al-Otaibi",
+      "age": 71,
+      "gender": "Male",
+      "insurance_id": "INS-7146617"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Clinical indication documented"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Malki",
+      "specialty": "Radiology",
+      "license_number": "MD-16253"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-601980",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-240735",
+      "name": "Ahmed Al-Harbi",
+      "age": 48,
+      "gender": "Female",
+      "insurance_id": "INS-7831201"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "M54.5",
+      "description": "Low back pain"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Clinical indication documented"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Huda Al-Harbi",
+      "specialty": "Radiology",
+      "license_number": "MD-45470"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-156555",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-763526",
+      "name": "Mohammed Al-Otaibi",
+      "age": 70,
+      "gender": "Male",
+      "insurance_id": "INS-1454978"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 18,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Otaibi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-90512"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-138915",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-539566",
+      "name": "Mohammed Al-Zahrani",
+      "age": 56,
+      "gender": "Female",
+      "insurance_id": "INS-7119048"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Clinical indication documented"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Qahtani",
+      "specialty": "Radiology",
+      "license_number": "MD-92774"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-454949",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-906259",
+      "name": "Abdullah Al-Malki",
+      "age": 56,
+      "gender": "Female",
+      "insurance_id": "INS-4509668"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "K92.1",
+      "description": "Gastrointestinal hemorrhage"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Clinical indication documented"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Ghamdi",
+      "specialty": "Radiology",
+      "license_number": "MD-93108"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-390034",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-586824",
+      "name": "Noura Al-Zahrani",
+      "age": 41,
+      "gender": "Female",
+      "insurance_id": "INS-2195001"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "R07.9",
+      "description": "Chest pain, unspecified"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 3,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Otaibi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-73903"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-857438",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-212999",
+      "name": "Abdullah Al-Malki",
+      "age": 28,
+      "gender": "Female",
+      "insurance_id": "INS-2097520"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "S83.511A",
+      "description": "Sprain of anterior cruciate ligament of right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed physical therapy for 12 weeks",
+        "MRI documented tear"
+      ],
+      "conservative_therapy_duration_weeks": 24,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Ahmed Al-Malki",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-92241"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-389136",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-582334",
+      "name": "Huda Al-Otaibi",
+      "age": 56,
+      "gender": "Male",
+      "insurance_id": "INS-2471293"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "R07.9",
+      "description": "Chest pain, unspecified"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 12,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Zahrani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-67972"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-731035",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-265461",
+      "name": "Khalid Al-Otaibi",
+      "age": 47,
+      "gender": "Male",
+      "insurance_id": "INS-5139999"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Clinical indication documented"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Malki",
+      "specialty": "Radiology",
+      "license_number": "MD-15858"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-702497",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-927119",
+      "name": "Mohammed Al-Otaibi",
+      "age": 53,
+      "gender": "Female",
+      "insurance_id": "INS-1951529"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "R07.9",
+      "description": "Chest pain, unspecified"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed physical therapy for 12 weeks",
+        "MRI documented tear"
+      ],
+      "conservative_therapy_duration_weeks": 19,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Khalid Al-Qahtani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-72645"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-516126",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-250818",
+      "name": "Khalid Al-Ghamdi",
+      "age": 62,
+      "gender": "Male",
+      "insurance_id": "INS-6105709"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "K92.1",
+      "description": "Gastrointestinal hemorrhage"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed physical therapy for 12 weeks",
+        "MRI documented tear"
+      ],
+      "conservative_therapy_duration_weeks": 6,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Ahmed Al-Malki",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-32032"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-698939",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-968233",
+      "name": "Sara Al-Ghamdi",
+      "age": 59,
+      "gender": "Female",
+      "insurance_id": "INS-2212968"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 12,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Zahrani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-85917"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-813716",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-237309",
+      "name": "Sara Al-Otaibi",
+      "age": 57,
+      "gender": "Male",
+      "insurance_id": "INS-6464736"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M54.5",
+      "description": "Low back pain"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 11,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Harbi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-39874"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-841498",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-995370",
+      "name": "Fatima Al-Ghamdi",
+      "age": 74,
+      "gender": "Female",
+      "insurance_id": "INS-3110137"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Zahrani",
+      "specialty": "Radiology",
+      "license_number": "MD-38932"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-677275",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-533367",
+      "name": "Khalid Al-Otaibi",
+      "age": 40,
+      "gender": "Male",
+      "insurance_id": "INS-1508375"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Zahrani",
+      "specialty": "Radiology",
+      "license_number": "MD-20944"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-457882",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-116127",
+      "name": "Khalid Al-Harbi",
+      "age": 46,
+      "gender": "Male",
+      "insurance_id": "INS-8476828"
+    },
+    "insurer": "Tawuniya",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "S83.511A",
+      "description": "Sprain of anterior cruciate ligament of right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Harbi",
+      "specialty": "Radiology",
+      "license_number": "MD-10603"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-483116",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-297268",
+      "name": "Abdullah Al-Harbi",
+      "age": 46,
+      "gender": "Male",
+      "insurance_id": "INS-8379605"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "M75.100",
+      "description": "Unspecified rotator cuff tear, unspecified shoulder"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 15,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Khalid Al-Harbi",
+      "specialty": "Radiology",
+      "license_number": "MD-22773"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-851454",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-551318",
+      "name": "Khalid Al-Harbi",
+      "age": 58,
+      "gender": "Male",
+      "insurance_id": "INS-7793881"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "45378",
+      "name": "Colonoscopy",
+      "category": "Gastroenterology"
+    },
+    "diagnosis": {
+      "icd10_code": "M54.5",
+      "description": "Low back pain"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Otaibi",
+      "specialty": "Gastroenterology",
+      "license_number": "MD-12973"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-236136",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-748063",
+      "name": "Noura Al-Harbi",
+      "age": 51,
+      "gender": "Male",
+      "insurance_id": "INS-9046915"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed",
+        "X-ray completed"
+      ],
+      "conservative_therapy_duration_weeks": 2,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Zahrani",
+      "specialty": "Radiology",
+      "license_number": "MD-47083"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-141230",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-871547",
+      "name": "Fatima Al-Qahtani",
+      "age": 48,
+      "gender": "Male",
+      "insurance_id": "INS-4051474"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed"
+      ],
+      "conservative_therapy_duration_weeks": 11,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Otaibi",
+      "specialty": "Radiology",
+      "license_number": "MD-10612"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-383311",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-187047",
+      "name": "Khalid Al-Qahtani",
+      "age": 57,
+      "gender": "Male",
+      "insurance_id": "INS-1732878"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed",
+        "X-ray completed"
+      ],
+      "conservative_therapy_duration_weeks": 14,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Zahrani",
+      "specialty": "Radiology",
+      "license_number": "MD-44724"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-281120",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-762303",
+      "name": "Noura Al-Otaibi",
+      "age": 28,
+      "gender": "Female",
+      "insurance_id": "INS-3513187"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "45378",
+      "name": "Colonoscopy",
+      "category": "Gastroenterology"
+    },
+    "diagnosis": {
+      "icd10_code": "M75.100",
+      "description": "Unspecified rotator cuff tear, unspecified shoulder"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Malki",
+      "specialty": "Gastroenterology",
+      "license_number": "MD-36926"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-440245",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-366289",
+      "name": "Noura Al-Harbi",
+      "age": 46,
+      "gender": "Male",
+      "insurance_id": "INS-8998868"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "K92.1",
+      "description": "Gastrointestinal hemorrhage"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Qahtani",
+      "specialty": "Radiology",
+      "license_number": "MD-83634"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-135097",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-323815",
+      "name": "Khalid Al-Harbi",
+      "age": 61,
+      "gender": "Female",
+      "insurance_id": "INS-7373496"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "45378",
+      "name": "Colonoscopy",
+      "category": "Gastroenterology"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Ahmed Al-Otaibi",
+      "specialty": "Gastroenterology",
+      "license_number": "MD-12984"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-690755",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-315183",
+      "name": "Ahmed Al-Otaibi",
+      "age": 45,
+      "gender": "Female",
+      "insurance_id": "INS-2944904"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "S83.511A",
+      "description": "Sprain of anterior cruciate ligament of right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 22,
+      "imaging_completed": null,
+      "bmi": 22.0
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Harbi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-34974"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-964744",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-313202",
+      "name": "Abdullah Al-Otaibi",
+      "age": 53,
+      "gender": "Male",
+      "insurance_id": "INS-1357995"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 22,
+      "imaging_completed": null,
+      "bmi": 37.6
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Harbi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-85501"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-613136",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-936428",
+      "name": "Ahmed Al-Otaibi",
+      "age": 39,
+      "gender": "Male",
+      "insurance_id": "INS-3983486"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "S83.511A",
+      "description": "Sprain of anterior cruciate ligament of right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Khalid Al-Ghamdi",
+      "specialty": "Radiology",
+      "license_number": "MD-85048"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-303810",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-899997",
+      "name": "Abdullah Al-Otaibi",
+      "age": 33,
+      "gender": "Female",
+      "insurance_id": "INS-6076169"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "M75.100",
+      "description": "Unspecified rotator cuff tear, unspecified shoulder"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "X-ray completed"
+      ],
+      "conservative_therapy_duration_weeks": 5,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Malki",
+      "specialty": "Radiology",
+      "license_number": "MD-58767"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-421740",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-162600",
+      "name": "Ahmed Al-Ghamdi",
+      "age": 57,
+      "gender": "Female",
+      "insurance_id": "INS-1407726"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "45378",
+      "name": "Colonoscopy",
+      "category": "Gastroenterology"
+    },
+    "diagnosis": {
+      "icd10_code": "M25.561",
+      "description": "Pain in right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Otaibi",
+      "specialty": "Gastroenterology",
+      "license_number": "MD-69435"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-753621",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-359884",
+      "name": "Sara Al-Ghamdi",
+      "age": 61,
+      "gender": "Female",
+      "insurance_id": "INS-2926033"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed",
+        "X-ray completed"
+      ],
+      "conservative_therapy_duration_weeks": 1,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Malki",
+      "specialty": "Radiology",
+      "license_number": "MD-62211"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-556316",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-583909",
+      "name": "Khalid Al-Qahtani",
+      "age": 59,
+      "gender": "Female",
+      "insurance_id": "INS-8447256"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "S83.511A",
+      "description": "Sprain of anterior cruciate ligament of right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 10,
+      "imaging_completed": null,
+      "bmi": 23.4
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Otaibi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-29781"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-915680",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-549653",
+      "name": "Abdullah Al-Ghamdi",
+      "age": 47,
+      "gender": "Male",
+      "insurance_id": "INS-9830024"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "45378",
+      "name": "Colonoscopy",
+      "category": "Gastroenterology"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Age >= 45 OR family history OR symptoms"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Ahmed Al-Otaibi",
+      "specialty": "Gastroenterology",
+      "license_number": "MD-91141"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-222786",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-513983",
+      "name": "Sara Al-Harbi",
+      "age": 50,
+      "gender": "Female",
+      "insurance_id": "INS-2245251"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "R07.9",
+      "description": "Chest pain, unspecified"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Clinical indication documented"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Khalid Al-Zahrani",
+      "specialty": "Radiology",
+      "license_number": "MD-59446"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-316135",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-190977",
+      "name": "Noura Al-Otaibi",
+      "age": 66,
+      "gender": "Male",
+      "insurance_id": "INS-4423795"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M25.561",
+      "description": "Pain in right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 7,
+      "imaging_completed": null,
+      "bmi": 40.3
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Otaibi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-27510"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-465223",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-195905",
+      "name": "Fatima Al-Malki",
+      "age": 36,
+      "gender": "Female",
+      "insurance_id": "INS-8951393"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed"
+      ],
+      "conservative_therapy_duration_weeks": 14,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Zahrani",
+      "specialty": "Radiology",
+      "license_number": "MD-60089"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-996365",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-613541",
+      "name": "Khalid Al-Otaibi",
+      "age": 27,
+      "gender": "Female",
+      "insurance_id": "INS-5739219"
+    },
+    "insurer": "Medgulf",
+    "requested_procedure": {
+      "cpt_code": "45378",
+      "name": "Colonoscopy",
+      "category": "Gastroenterology"
+    },
+    "diagnosis": {
+      "icd10_code": "S83.511A",
+      "description": "Sprain of anterior cruciate ligament of right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Age >= 45 OR family history OR symptoms"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Malki",
+      "specialty": "Gastroenterology",
+      "license_number": "MD-85498"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-773776",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-523169",
+      "name": "Mohammed Al-Zahrani",
+      "age": 58,
+      "gender": "Male",
+      "insurance_id": "INS-9404913"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months"
+      ],
+      "conservative_therapy_duration_weeks": 8,
+      "imaging_completed": null,
+      "bmi": 21.7
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Zahrani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-68236"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-152165",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-429731",
+      "name": "Ahmed Al-Otaibi",
+      "age": 54,
+      "gender": "Male",
+      "insurance_id": "INS-1553503"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M75.100",
+      "description": "Unspecified rotator cuff tear, unspecified shoulder"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 12,
+      "imaging_completed": null,
+      "bmi": 36.3
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Harbi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-14422"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-782935",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-704368",
+      "name": "Fatima Al-Harbi",
+      "age": 73,
+      "gender": "Female",
+      "insurance_id": "INS-8038011"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed",
+        "X-ray completed"
+      ],
+      "conservative_therapy_duration_weeks": 20,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Harbi",
+      "specialty": "Radiology",
+      "license_number": "MD-95369"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-888814",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-120764",
+      "name": "Mohammed Al-Qahtani",
+      "age": 63,
+      "gender": "Female",
+      "insurance_id": "INS-6914009"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M75.100",
+      "description": "Unspecified rotator cuff tear, unspecified shoulder"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months"
+      ],
+      "conservative_therapy_duration_weeks": 4,
+      "imaging_completed": null,
+      "bmi": 38.1
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Harbi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-28293"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-730935",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-295813",
+      "name": "Ahmed Al-Malki",
+      "age": 40,
+      "gender": "Female",
+      "insurance_id": "INS-7064531"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 13,
+      "imaging_completed": null,
+      "bmi": 44.5
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Malki",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-69204"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-674337",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-666310",
+      "name": "Fatima Al-Harbi",
+      "age": 65,
+      "gender": "Female",
+      "insurance_id": "INS-9973357"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M54.5",
+      "description": "Low back pain"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 19,
+      "imaging_completed": null,
+      "bmi": 35.4
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Qahtani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-63872"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-476298",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-481262",
+      "name": "Noura Al-Qahtani",
+      "age": 61,
+      "gender": "Female",
+      "insurance_id": "INS-1095635"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "S83.511A",
+      "description": "Sprain of anterior cruciate ligament of right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 21,
+      "imaging_completed": null,
+      "bmi": 42.7
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Qahtani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-84488"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-110934",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-141712",
+      "name": "Huda Al-Zahrani",
+      "age": 32,
+      "gender": "Male",
+      "insurance_id": "INS-8327894"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed",
+        "X-ray completed"
+      ],
+      "conservative_therapy_duration_weeks": 3,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Otaibi",
+      "specialty": "Radiology",
+      "license_number": "MD-96085"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-476944",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-387529",
+      "name": "Ahmed Al-Harbi",
+      "age": 61,
+      "gender": "Female",
+      "insurance_id": "INS-4421341"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed",
+        "X-ray completed"
+      ],
+      "conservative_therapy_duration_weeks": 14,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Huda Al-Ghamdi",
+      "specialty": "Radiology",
+      "license_number": "MD-58600"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-762547",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-673439",
+      "name": "Ahmed Al-Malki",
+      "age": 43,
+      "gender": "Female",
+      "insurance_id": "INS-2129541"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed",
+        "X-ray completed"
+      ],
+      "conservative_therapy_duration_weeks": 16,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Qahtani",
+      "specialty": "Radiology",
+      "license_number": "MD-57350"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-178996",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-114699",
+      "name": "Abdullah Al-Otaibi",
+      "age": 37,
+      "gender": "Female",
+      "insurance_id": "INS-2501515"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "K92.1",
+      "description": "Gastrointestinal hemorrhage"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed",
+        "X-ray completed"
+      ],
+      "conservative_therapy_duration_weeks": 0,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Zahrani",
+      "specialty": "Radiology",
+      "license_number": "MD-20964"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-659252",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-920161",
+      "name": "Mohammed Al-Zahrani",
+      "age": 43,
+      "gender": "Female",
+      "insurance_id": "INS-2854617"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed"
+      ],
+      "conservative_therapy_duration_weeks": 22,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Mohammed Al-Zahrani",
+      "specialty": "Radiology",
+      "license_number": "MD-40704"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-401242",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-308014",
+      "name": "Mohammed Al-Malki",
+      "age": 32,
+      "gender": "Female",
+      "insurance_id": "INS-7177250"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "M25.561",
+      "description": "Pain in right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "X-ray completed"
+      ],
+      "conservative_therapy_duration_weeks": 13,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Otaibi",
+      "specialty": "Radiology",
+      "license_number": "MD-18497"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-464657",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-631307",
+      "name": "Huda Al-Otaibi",
+      "age": 69,
+      "gender": "Female",
+      "insurance_id": "INS-3144156"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 17,
+      "imaging_completed": null,
+      "bmi": 35.9
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Ghamdi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-90607"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-699331",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-275515",
+      "name": "Noura Al-Ghamdi",
+      "age": 73,
+      "gender": "Male",
+      "insurance_id": "INS-4702249"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "M25.561",
+      "description": "Pain in right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 23,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Harbi",
+      "specialty": "Radiology",
+      "license_number": "MD-82227"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-161168",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-733272",
+      "name": "Noura Al-Qahtani",
+      "age": 40,
+      "gender": "Female",
+      "insurance_id": "INS-4781075"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "K92.1",
+      "description": "Gastrointestinal hemorrhage"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 13,
+      "imaging_completed": null,
+      "bmi": 24.6
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Harbi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-60322"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-600336",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-773175",
+      "name": "Khalid Al-Harbi",
+      "age": 36,
+      "gender": "Female",
+      "insurance_id": "INS-8562825"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 21,
+      "imaging_completed": null,
+      "bmi": 20.1
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Qahtani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-32172"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-167284",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-993963",
+      "name": "Abdullah Al-Harbi",
+      "age": 74,
+      "gender": "Male",
+      "insurance_id": "INS-6220648"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M54.5",
+      "description": "Low back pain"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 5,
+      "imaging_completed": null,
+      "bmi": 28.5
+    },
+    "requesting_physician": {
+      "name": "Dr. Khalid Al-Zahrani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-53533"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-111419",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-785214",
+      "name": "Noura Al-Ghamdi",
+      "age": 53,
+      "gender": "Male",
+      "insurance_id": "INS-5211957"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 21,
+      "imaging_completed": null,
+      "bmi": 42.5
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Malki",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-23463"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-208721",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-767967",
+      "name": "Abdullah Al-Qahtani",
+      "age": 33,
+      "gender": "Female",
+      "insurance_id": "INS-2617831"
+    },
+    "insurer": "Solidarity Saudi Takaful",
+    "requested_procedure": {
+      "cpt_code": "73721",
+      "name": "MRI Lower Extremity",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Conservative therapy failed",
+        "X-ray completed"
+      ],
+      "conservative_therapy_duration_weeks": 17,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Qahtani",
+      "specialty": "Radiology",
+      "license_number": "MD-98555"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-705136",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-778400",
+      "name": "Mohammed Al-Malki",
+      "age": 68,
+      "gender": "Female",
+      "insurance_id": "INS-9515744"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 14,
+      "imaging_completed": null,
+      "bmi": 40.1
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Qahtani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-24950"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-629399",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-429035",
+      "name": "Ahmed Al-Qahtani",
+      "age": 63,
+      "gender": "Female",
+      "insurance_id": "INS-1415909"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M75.100",
+      "description": "Unspecified rotator cuff tear, unspecified shoulder"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months"
+      ],
+      "conservative_therapy_duration_weeks": 13,
+      "imaging_completed": null,
+      "bmi": 33.9
+    },
+    "requesting_physician": {
+      "name": "Dr. Ahmed Al-Qahtani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-39102"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-977881",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-541937",
+      "name": "Huda Al-Malki",
+      "age": 41,
+      "gender": "Female",
+      "insurance_id": "INS-1890458"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "K92.1",
+      "description": "Gastrointestinal hemorrhage"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 13,
+      "imaging_completed": null,
+      "bmi": 33.9
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Ghamdi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-71191"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-322900",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-255367",
+      "name": "Ahmed Al-Zahrani",
+      "age": 43,
+      "gender": "Male",
+      "insurance_id": "INS-5511353"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M54.5",
+      "description": "Low back pain"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months"
+      ],
+      "conservative_therapy_duration_weeks": 22,
+      "imaging_completed": null,
+      "bmi": 37.0
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Qahtani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-97695"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-807174",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-479377",
+      "name": "Khalid Al-Malki",
+      "age": 70,
+      "gender": "Male",
+      "insurance_id": "INS-8601303"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "M25.561",
+      "description": "Pain in right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Clinical indication documented"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Ahmed Al-Zahrani",
+      "specialty": "Radiology",
+      "license_number": "MD-15339"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-428388",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-470026",
+      "name": "Noura Al-Qahtani",
+      "age": 32,
+      "gender": "Female",
+      "insurance_id": "INS-2715158"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Clinical indication documented"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Zahrani",
+      "specialty": "Radiology",
+      "license_number": "MD-91869"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-171714",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-329955",
+      "name": "Mohammed Al-Malki",
+      "age": 42,
+      "gender": "Female",
+      "insurance_id": "INS-4120870"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M75.100",
+      "description": "Unspecified rotator cuff tear, unspecified shoulder"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 15,
+      "imaging_completed": null,
+      "bmi": 36.5
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Ghamdi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-77961"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-344970",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-123954",
+      "name": "Noura Al-Ghamdi",
+      "age": 75,
+      "gender": "Male",
+      "insurance_id": "INS-6485513"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 4,
+      "imaging_completed": null,
+      "bmi": 39.2
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Qahtani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-89395"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-605371",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-110475",
+      "name": "Abdullah Al-Zahrani",
+      "age": 41,
+      "gender": "Male",
+      "insurance_id": "INS-5953352"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 15,
+      "imaging_completed": null,
+      "bmi": 44.4
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Ghamdi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-76742"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-467628",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-434884",
+      "name": "Khalid Al-Otaibi",
+      "age": 25,
+      "gender": "Female",
+      "insurance_id": "INS-8251507"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months"
+      ],
+      "conservative_therapy_duration_weeks": 15,
+      "imaging_completed": null,
+      "bmi": 22.1
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Ghamdi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-41225"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-456385",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-914501",
+      "name": "Abdullah Al-Zahrani",
+      "age": 34,
+      "gender": "Male",
+      "insurance_id": "INS-7928914"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "K92.1",
+      "description": "Gastrointestinal hemorrhage"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed physical therapy for 12 weeks",
+        "MRI documented tear"
+      ],
+      "conservative_therapy_duration_weeks": 4,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Harbi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-49459"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-983723",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-284272",
+      "name": "Huda Al-Malki",
+      "age": 63,
+      "gender": "Male",
+      "insurance_id": "INS-9249720"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [],
+      "conservative_therapy_duration_weeks": 3,
+      "imaging_completed": null,
+      "bmi": 28.0
+    },
+    "requesting_physician": {
+      "name": "Dr. Khalid Al-Malki",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-44641"
+    },
+    "approval_likelihood_label": "low"
+  },
+  {
+    "request_id": "PA-856647",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-934019",
+      "name": "Abdullah Al-Qahtani",
+      "age": 62,
+      "gender": "Female",
+      "insurance_id": "INS-8985701"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 22,
+      "imaging_completed": null,
+      "bmi": 30.4
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Harbi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-74182"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-604845",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-367133",
+      "name": "Khalid Al-Otaibi",
+      "age": 31,
+      "gender": "Female",
+      "insurance_id": "INS-7351513"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "M75.100",
+      "description": "Unspecified rotator cuff tear, unspecified shoulder"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Clinical indication documented"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Ghamdi",
+      "specialty": "Radiology",
+      "license_number": "MD-75130"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-710821",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-186133",
+      "name": "Fatima Al-Qahtani",
+      "age": 65,
+      "gender": "Female",
+      "insurance_id": "INS-7221311"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 12,
+      "imaging_completed": null,
+      "bmi": 38.6
+    },
+    "requesting_physician": {
+      "name": "Dr. Sara Al-Ghamdi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-13910"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-452620",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-311585",
+      "name": "Abdullah Al-Malki",
+      "age": 74,
+      "gender": "Female",
+      "insurance_id": "INS-8224047"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "70450",
+      "name": "CT Head without Contrast",
+      "category": "Radiology"
+    },
+    "diagnosis": {
+      "icd10_code": "I10",
+      "description": "Essential hypertension"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Clinical indication documented"
+      ],
+      "conservative_therapy_duration_weeks": null,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Huda Al-Otaibi",
+      "specialty": "Radiology",
+      "license_number": "MD-78102"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-377768",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-995699",
+      "name": "Huda Al-Ghamdi",
+      "age": 47,
+      "gender": "Female",
+      "insurance_id": "INS-8558230"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "R07.9",
+      "description": "Chest pain, unspecified"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed physical therapy for 12 weeks",
+        "MRI documented tear"
+      ],
+      "conservative_therapy_duration_weeks": 24,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Fatima Al-Ghamdi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-58762"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-393030",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-702705",
+      "name": "Khalid Al-Zahrani",
+      "age": 29,
+      "gender": "Male",
+      "insurance_id": "INS-2921739"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "29827",
+      "name": "Arthroscopy Shoulder",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M75.100",
+      "description": "Unspecified rotator cuff tear, unspecified shoulder"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed physical therapy for 12 weeks",
+        "MRI documented tear"
+      ],
+      "conservative_therapy_duration_weeks": 24,
+      "imaging_completed": null,
+      "bmi": null
+    },
+    "requesting_physician": {
+      "name": "Dr. Abdullah Al-Harbi",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-93347"
+    },
+    "approval_likelihood_label": "high"
+  },
+  {
+    "request_id": "PA-849360",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-600845",
+      "name": "Ahmed Al-Qahtani",
+      "age": 32,
+      "gender": "Male",
+      "insurance_id": "INS-5400081"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 11,
+      "imaging_completed": null,
+      "bmi": 31.2
+    },
+    "requesting_physician": {
+      "name": "Dr. Huda Al-Malki",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-27249"
+    },
+    "approval_likelihood_label": "medium"
+  },
+  {
+    "request_id": "PA-250277",
+    "timestamp": "2026-04-15T13:36:44.930200",
+    "patient": {
+      "patient_id": "PAT-211025",
+      "name": "Huda Al-Zahrani",
+      "age": 56,
+      "gender": "Female",
+      "insurance_id": "INS-2737086"
+    },
+    "insurer": "Al-Rajhi Takaful",
+    "requested_procedure": {
+      "cpt_code": "27447",
+      "name": "Total Knee Arthroplasty",
+      "category": "Orthopedic Surgery"
+    },
+    "diagnosis": {
+      "icd10_code": "M25.561",
+      "description": "Pain in right knee"
+    },
+    "clinical_info": {
+      "prerequisites_met": [
+        "Failed conservative therapy for 6 months",
+        "BMI < 40"
+      ],
+      "conservative_therapy_duration_weeks": 5,
+      "imaging_completed": null,
+      "bmi": 44.1
+    },
+    "requesting_physician": {
+      "name": "Dr. Noura Al-Zahrani",
+      "specialty": "Orthopedic Surgery",
+      "license_number": "MD-46288"
+    },
+    "approval_likelihood_label": "high"
+  }
+]
