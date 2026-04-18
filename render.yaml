@@ -1,0 +1,43 @@
+# render.yaml — Infrastructure-as-Code for Render.com
+
+services:
+  - type: web
+    name: pa-validation-api
+    runtime: python
+    region: london          
+    plan: free             
+
+    # Root directory
+    rootDir: backend
+
+    # Build command — installs dependencies
+    buildCommand: pip install -r requirements.txt
+
+    # Start command — Render injects $PORT automatically
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT --workers 1
+
+    # Health check — Render uses this to decide if the deploy succeeded
+    healthCheckPath: /api/health
+
+    # Environment variables set here are overridden by the dashboard values.
+    # Only put non-secret defaults here.  Secrets go in the Render dashboard.
+    envVars:
+      - key: API_HOST
+        value: 0.0.0.0
+      - key: API_DEBUG
+        value: "false"          # always false in production
+      - key: API_PORT
+        value: "8000"           
+      - key: DB_POOL_SIZE
+        value: "3"             
+      - key: DB_MAX_OVERFLOW
+        value: "2"
+      - key: DB_POOL_TIMEOUT
+        value: "30"
+
+databases:
+  - name: pa-validation-db
+    databaseName: validation_db
+    user: inara
+    plan: free                  # 90-day free tier
+    region: london          

@@ -1,5 +1,8 @@
 """
 Central configuration for the PA Validation System backend.
+
+Environment variables are read from .env (local dev) or from the platform
+environment (Render production). Every field has a sensible default.
 """
 
 from pathlib import Path
@@ -8,29 +11,41 @@ from typing  import List
 from pydantic          import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
+# backend/core/config.py
 BACKEND_DIR = Path(__file__).parent.parent.absolute()
 
+
 class Settings(BaseSettings):
-    """
-    Application settings, read from environment variables or a .env file.
-    Every field has a sensible development default.
-    """
 
     model_config = SettingsConfigDict(
         env_file=BACKEND_DIR / ".env",
         env_file_encoding="utf-8",
-        extra="ignore",   # extra .env keys are silently ignored
+        extra="ignore",
     )
 
     # ── Security ──────────────────────────────────────────────────────────────
     PA_SECRET_KEY: str = "dev-only-change-in-production"
 
     # ── Database ──────────────────────────────────────────────────────────────
-    # Default: SQLite inside backend/ — zero config for local development.
-    # Override with a PostgreSQL URL in .env for production.
     DATABASE_URL: str = f"sqlite+aiosqlite:///{BACKEND_DIR / 'pa_validation.db'}"
 
-    # PostgreSQL connection pool — ignored when using SQLite.
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def fix_postgres_scheme(cls, v: str) -> str:
+        """
+        Auto-convert postgresql:// → postgresql+asyncpg://
+
+        Render (and most PaaS providers) supply a plain postgresql:// URL.
+        SQLAlchemy's async engine requires the +asyncpg driver suffix.
+        This validator patches it transparently so no manual editing is needed.
+        """
+        if v.startswith("postgresql://") or v.startswith("postgres://"):
+            v = v.replace("postgresql://", "postgresql+asyncpg://", 1)
+            v = v.replace("postgres://", "postgresql+asyncpg://", 1)
+        return v
+
+    # PostgreSQL connection pool — ignored by SQLite
     DB_POOL_SIZE:    int = 5
     DB_MAX_OVERFLOW: int = 10
     DB_POOL_TIMEOUT: int = 30
@@ -38,7 +53,7 @@ class Settings(BaseSettings):
     # ── API server ────────────────────────────────────────────────────────────
     API_HOST:  str  = "0.0.0.0"
     API_PORT:  int  = 8000
-    API_DEBUG: bool = True
+    API_DEBUG: bool = False      # always False in production
 
     # ── CORS ──────────────────────────────────────────────────────────────────
     CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
@@ -53,7 +68,6 @@ class Settings(BaseSettings):
         return [o.strip() for o in self.CORS_ORIGINS.split(",") if o.strip()]
 
     # ── Uploads ───────────────────────────────────────────────────────────────
-    @property
     def upload_dir(self) -> Path:
         d = BACKEND_DIR / "uploads"
         d.mkdir(parents=True, exist_ok=True)
@@ -78,7 +92,9 @@ class Settings(BaseSettings):
     def max_file_size_bytes(self) -> int:
         return self.MAX_FILE_SIZE_MB * 1024 * 1024
 
-# ── NLP settings ────────────────
+
+# ── Constants ──────────────────────────────────────
+
 NLP_CONFIG = {
     "max_features": 1000,
     "min_df":       2,
@@ -86,30 +102,24 @@ NLP_CONFIG = {
     "ngram_range":  (1, 2),
 }
 
-# ── ML training settings ────────────────────────────────────
 ML_CONFIG = {
     "test_size":    0.2,
     "random_state": 42,
     "cv_folds":     5,
 }
 
-# ── Routing confidence thresholds ───────────────────────────
 ROUTER_THRESHOLDS = {
     "high_confidence": 0.80,
     "low_confidence":  0.50,
 }
 
-# ── Medical code regex ──────────────────────────────────────
 CPT_PATTERN   = r'\b\d{5}\b'
 ICD10_PATTERN = r'\b[A-Z]\d{2}(?:\.\d{1,4})?\b'
 
-# ── ML model artefacts ────────────────────────────────────────────────────────
 MODELS_DIR = BACKEND_DIR / "models"
 MODELS_DIR.mkdir(exist_ok=True)
 
-# ── Logs ──────────────────────────────────────────────────────────────────────
 LOGS_DIR = BACKEND_DIR / "logs"
 LOGS_DIR.mkdir(exist_ok=True)
 
-# Module-level singleton 
 settings = Settings()

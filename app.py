@@ -2,6 +2,7 @@
 PA Validation System — FastAPI entry point.
 """
 
+import os
 import sys
 import logging
 from contextlib import asynccontextmanager
@@ -11,14 +12,14 @@ import uvicorn
 from fastapi                 import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+# backend/ must be on sys.path so core/, modules/, src/ are importable
 BACKEND_DIR = Path(__file__).parent
 sys.path.insert(0, str(BACKEND_DIR))
 
 from core.config   import settings
 from core.database import create_tables
 
-# Routers
-from modules.routes.policies    import router as policies_router
+from modules.routes             import router as policies_router
 from modules.routes.submissions import router as submissions_router
 from modules.routes.health      import router as health_router
 
@@ -27,19 +28,20 @@ logging.getLogger("sqlalchemy.engine").setLevel(logging.WARNING)
 logging.getLogger("watchfiles").setLevel(logging.WARNING)
 
 
-# ── Lifespan ─────────────────────────────────────────────────────
+# ── Lifespan ──────────────────────────────────────────────────────────────────
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await create_tables()
     await _warm_policy_cache()
-    print("[startup] API ready.")
+    print("[startup] Database ready.")
+    print(f"[startup] Model: {'loaded' if _model_loaded() else 'NOT loaded'}")
     yield
-    print("[shutdown] API stopped.")
+    print("[shutdown] Server shutting down.")
 
 
 async def _warm_policy_cache() -> None:
-    """Pre-load policy rules into memory so submissions work immediately."""
+    """Pre-load all stored policy rules into memory at startup."""
     from core.database import AsyncSessionLocal
     from core.models   import Policy
     from sqlalchemy    import select
@@ -59,10 +61,14 @@ async def _warm_policy_cache() -> None:
         print(f"[startup] Loaded {len(records)} policy rule set(s) into cache.")
 
 
-# ── App Factory ──────────────────────────────────────────────────
+def _model_loaded() -> bool:
+    from modules.services.ml_pipeline import router as ml_router
+    return ml_router is not None
+
+
+# ── App factory ───────────────────────────────────────────────────────────────
 
 def create_app() -> FastAPI:
-
     app = FastAPI(
         title    = "PA Validation System API",
         version  = "2.0.0",
@@ -89,18 +95,19 @@ def create_app() -> FastAPI:
 app = create_app()
 
 
-# ── Entry Point ──────────────────────────────────────────────────
+# ── Entry point ───────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
+    port = int(os.environ.get("PORT", settings.API_PORT))
 
     print("PA Validation System API")
-    print(f"Docs   -> http://localhost:{settings.API_PORT}/api/docs")
-    print(f"Health -> http://localhost:{settings.API_PORT}/api/health")
+    print(f"Docs   -> http://localhost:{port}/api/docs")
+    print(f"Health -> http://localhost:{port}/api/health")
 
     uvicorn.run(
         "app:app",
         host      = settings.API_HOST,
-        port      = settings.API_PORT,
-        reload    = False,
+        port      = port,
+        reload    = False,        # always off in production
         log_level = "warning",
     )
