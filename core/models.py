@@ -32,15 +32,6 @@ from core.database import Base
 # ── Policy ────────────────────────────────────────────────────────────────────
 
 class Policy(Base):
-    """
-    One insurance policy stored in the system.
-
-    source = "generated"  → synthesised by SyntheticDataGenerator (no file)
-    source = "uploaded"   → a real PDF/DOCX uploaded by the user
-
-    The download_url is NOT stored here.  Route handlers assemble it from
-    request.base_url so it always uses the correct host and scheme.
-    """
 
     __tablename__ = "policies"
 
@@ -68,12 +59,6 @@ class Policy(Base):
     )
 
     def to_dict(self) -> dict:
-        """
-        Serialise to a plain dict for JSON responses.
-
-        download_url is intentionally absent — route handlers add it
-        because it depends on the request host.
-        """
         return {
             "id":             self.id,
             "policy_id":      self.policy_id,
@@ -88,12 +73,6 @@ class Policy(Base):
         }
 
     def to_json_export(self) -> str:
-        """
-        Pretty-print the full policy as JSON.
-
-        Used by the download endpoint for generated policies that have no
-        physical file on disk — the user still gets a useful artefact.
-        """
         doc = {
             "policy_id":      self.policy_id,
             "insurer":        self.insurer,
@@ -109,17 +88,6 @@ class Policy(Base):
 # ── ValidationResult ──────────────────────────────────────────────────────────
 
 class ValidationResult(Base):
-    """
-    Permanent audit record of one PA submission and its routing decision.
-
-    Every field the React frontend needs — for the result card on the
-    Submit page and the history table on the Dashboard — is stored here.
-    Nothing is held only in memory, so history survives server restarts.
-
-    source = "auto_generated"  → triggered via the dropdown autogeneration flow
-    source = "file_upload"     → triggered by uploading a clinical document
-    """
-
     __tablename__ = "validation_results"
 
     id         = Column(Integer, primary_key=True, autoincrement=True)
@@ -153,10 +121,10 @@ class ValidationResult(Base):
 
     # ── Submission metadata ───────────────────────────────────────────────────
     source             = Column(String(32),  nullable=False, default="auto_generated")
-    uploaded_filename  = Column(String(256), nullable=True)   # original filename
-    uploaded_file_path = Column(String(512), nullable=True)   # server-side absolute path
+    uploaded_filename  = Column(String(256), nullable=True)   
+    uploaded_file_path = Column(String(512), nullable=True)  
 
-    # Full raw data — never throw away the original request or routing blob.
+    # Full raw data
     full_request_json = Column(JSON, nullable=True)
     full_routing_json = Column(JSON, nullable=True)
 
@@ -167,12 +135,7 @@ class ValidationResult(Base):
     )
 
     def to_dict(self) -> dict:
-        """
-        Serialise to a plain dict for JSON responses.
-
-        download_url is absent here — route handlers add it when needed
-        because it depends on request.base_url.
-        """
+      
         return {
             "id":                  self.id,
             "request_id":          self.request_id,

@@ -19,16 +19,6 @@ from core.config import settings
 
 # ── Engine ────────────────────────────────────────────────────────────────────
 def _build_engine():
-    """
-    Build the async engine with correct pool settings per database type.
-
-    SQLite: single-connection StaticPool (no concurrent write support).
-    PostgreSQL: full configurable pool from .env settings.
-
-    echo is always False here — SQLAlchemy SQL logging is controlled via
-    the logging module in app.py, not via the engine flag, so it doesn't
-    flood the console during normal development.
-    """
     url = settings.DATABASE_URL
 
     if url.startswith("sqlite"):
@@ -45,7 +35,7 @@ def _build_engine():
         pool_size    = settings.DB_POOL_SIZE,
         max_overflow = settings.DB_MAX_OVERFLOW,
         pool_timeout = settings.DB_POOL_TIMEOUT,
-        pool_pre_ping= True,   # drops stale connections automatically
+        pool_pre_ping= True,
         echo         = False,
     )
 
@@ -55,7 +45,7 @@ engine = _build_engine()
 AsyncSessionLocal = async_sessionmaker(
     bind=engine,
     class_=AsyncSession,
-    expire_on_commit=False,   # avoids lazy-load errors after commit
+    expire_on_commit=False,   # avoids lazy-load
     autocommit=False,
     autoflush=False,
 )
@@ -71,16 +61,6 @@ class Base(DeclarativeBase):
 # ── FastAPI dependency ────────────────────────────────────────────────────────
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    """
-    FastAPI dependency that yields one AsyncSession per request.
-
-    Usage in a route:
-        async def my_route(db: AsyncSession = Depends(get_db)):
-            result = await db.execute(select(MyModel))
-
-    The session is closed automatically when the request finishes.
-    Any unhandled exception triggers a rollback before the close.
-    """
     async with AsyncSessionLocal() as session:
         try:
             yield session
@@ -91,12 +71,6 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 
 # ── Startup helper ────────────────────────────────────────────────────────────
 async def create_tables() -> None:
-    """
-    Create all tables that don't exist yet.
-
-    Called once at application startup via the lifespan context in app.py.
-    In production, use `alembic upgrade head` instead for controlled migrations.
-    """
     async with engine.begin() as conn:
         from core import models  # noqa: F401 — registers models with Base.metadata
         await conn.run_sync(Base.metadata.create_all)
