@@ -19,7 +19,7 @@ sys.path.insert(0, str(BACKEND_DIR))
 from core.config   import settings
 from core.database import create_tables
 
-from modules.routes             import router as policies_router
+from modules.routes.policies    import router as policies_router
 from modules.routes.submissions import router as submissions_router
 from modules.routes.health      import router as health_router
 
