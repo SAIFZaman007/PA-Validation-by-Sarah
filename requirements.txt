@@ -7,8 +7,8 @@ sqlalchemy==2.0.30
 alembic==1.13.1
 
 # ── Database drivers ──────────────────────────────────────────────────────────
-asyncpg==0.29.0
-psycopg2-binary==2.9.9
+asyncpg==0.31.0
+psycopg2-binary==2.9.11
 aiosqlite==0.20.0
 
 # ── Request validation & settings ─────────────────────────────────────────────
@@ -19,17 +19,17 @@ pydantic-settings==2.2.1
 python-multipart==0.0.9
 
 # ── PDF text extraction ────────────────────────────────────────────────────────
-pdfplumber==0.10.3
+pdfplumber==0.11.9
 
 # ── Environment / config ──────────────────────────────────────────────────────
 python-dotenv==1.0.0
 
 # ── Data processing & ML pipeline ─────────────────────────────────────────────
-pandas==2.2.2
-numpy==1.26.4
-scikit-learn==1.4.2
-joblib==1.4.2
-nltk==3.8.1
+pandas==2.2.3
+numpy==2.2.3
+scikit-learn==1.6.1
+joblib==1.5.3 
+nltk==3.9.4
 
 # ── PDF report generation ──────────────────────────────────────────────────────
-reportlab==4.2.0
+reportlab==4.4.10 
