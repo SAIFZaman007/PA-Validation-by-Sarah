@@ -1,94 +1,10 @@
 [
   {
-    "policy_id": "POL-19749",
-    "insurer": "Al-Rajhi Takaful",
+    "policy_id": "POL-40628",
+    "insurer": "Medgulf",
     "effective_date": "2024-01-01",
     "version": "2024.1",
     "coverage_rules": [
-      {
-        "cpt_code": "29827",
-        "procedure_name": "Arthroscopy Shoulder",
-        "category": "Orthopedic Surgery",
-        "requires_prior_auth": true,
-        "prerequisites": [
-          "Failed physical therapy for 12 weeks",
-          "MRI documented tear"
-        ],
-        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Failed physical therapy for 12 weeks   - MRI documented tear Documented physical examination required. Imaging studies must be submitted with request.",
-        "estimated_cost": "SAR 8,000 - 15,000"
-      },
-      {
-        "cpt_code": "93000",
-        "procedure_name": "Electrocardiogram (ECG)",
-        "category": "Cardiology",
-        "requires_prior_auth": false,
-        "prerequisites": [],
-        "coverage_criteria": "No prior authorization required.",
-        "estimated_cost": "SAR 50 - 150"
-      },
-      {
-        "cpt_code": "45378",
-        "procedure_name": "Colonoscopy",
-        "category": "Gastroenterology",
-        "requires_prior_auth": true,
-        "prerequisites": [
-          "Age >= 45 OR family history OR symptoms"
-        ],
-        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Age >= 45 OR family history OR symptoms",
-        "estimated_cost": "SAR 2,000 - 4,000"
-      },
-      {
-        "cpt_code": "99213",
-        "procedure_name": "Office Visit - Established Patient",
-        "category": "Primary Care",
-        "requires_prior_auth": false,
-        "prerequisites": [],
-        "coverage_criteria": "No prior authorization required.",
-        "estimated_cost": "SAR 100 - 200"
-      },
-      {
-        "cpt_code": "27447",
-        "procedure_name": "Total Knee Arthroplasty",
-        "category": "Orthopedic Surgery",
-        "requires_prior_auth": true,
-        "prerequisites": [
-          "Failed conservative therapy for 6 months",
-          "BMI < 40"
-        ],
-        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Failed conservative therapy for 6 months   - BMI < 40 Documented physical examination required. Imaging studies must be submitted with request.",
-        "estimated_cost": "SAR 15,000 - 25,000"
-      }
-    ]
-  },
-  {
-    "policy_id": "POL-74522",
-    "insurer": "Tawuniya",
-    "effective_date": "2024-01-01",
-    "version": "2024.1",
-    "coverage_rules": [
-      {
-        "cpt_code": "70450",
-        "procedure_name": "CT Head without Contrast",
-        "category": "Radiology",
-        "requires_prior_auth": true,
-        "prerequisites": [
-          "Clinical indication documented"
-        ],
-        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Clinical indication documented",
-        "estimated_cost": "SAR 500 - 1,500"
-      },
-      {
-        "cpt_code": "29827",
-        "procedure_name": "Arthroscopy Shoulder",
-        "category": "Orthopedic Surgery",
-        "requires_prior_auth": true,
-        "prerequisites": [
-          "Failed physical therapy for 12 weeks",
-          "MRI documented tear"
-        ],
-        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Failed physical therapy for 12 weeks   - MRI documented tear Documented physical examination required. Imaging studies must be submitted with request.",
-        "estimated_cost": "SAR 8,000 - 15,000"
-      },
       {
         "cpt_code": "88305",
         "procedure_name": "Tissue Examination",
@@ -99,15 +15,6 @@
         "estimated_cost": "SAR 200 - 500"
       },
       {
-        "cpt_code": "93000",
-        "procedure_name": "Electrocardiogram (ECG)",
-        "category": "Cardiology",
-        "requires_prior_auth": false,
-        "prerequisites": [],
-        "coverage_criteria": "No prior authorization required.",
-        "estimated_cost": "SAR 50 - 150"
-      },
-      {
         "cpt_code": "99213",
         "procedure_name": "Office Visit - Established Patient",
         "category": "Primary Care",
@@ -115,45 +22,6 @@
         "prerequisites": [],
         "coverage_criteria": "No prior authorization required.",
         "estimated_cost": "SAR 100 - 200"
-      }
-    ]
-  },
-  {
-    "policy_id": "POL-64259",
-    "insurer": "Medgulf",
-    "effective_date": "2024-01-01",
-    "version": "2024.1",
-    "coverage_rules": [
-      {
-        "cpt_code": "70450",
-        "procedure_name": "CT Head without Contrast",
-        "category": "Radiology",
-        "requires_prior_auth": true,
-        "prerequisites": [
-          "Clinical indication documented"
-        ],
-        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Clinical indication documented",
-        "estimated_cost": "SAR 500 - 1,500"
-      },
-      {
-        "cpt_code": "93000",
-        "procedure_name": "Electrocardiogram (ECG)",
-        "category": "Cardiology",
-        "requires_prior_auth": false,
-        "prerequisites": [],
-        "coverage_criteria": "No prior authorization required.",
-        "estimated_cost": "SAR 50 - 150"
-      },
-      {
-        "cpt_code": "45378",
-        "procedure_name": "Colonoscopy",
-        "category": "Gastroenterology",
-        "requires_prior_auth": true,
-        "prerequisites": [
-          "Age >= 45 OR family history OR symptoms"
-        ],
-        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Age >= 45 OR family history OR symptoms",
-        "estimated_cost": "SAR 2,000 - 4,000"
       },
       {
         "cpt_code": "73721",
@@ -168,6 +36,15 @@
         "estimated_cost": "SAR 1,500 - 3,000"
       },
       {
+        "cpt_code": "93000",
+        "procedure_name": "Electrocardiogram (ECG)",
+        "category": "Cardiology",
+        "requires_prior_auth": false,
+        "prerequisites": [],
+        "coverage_criteria": "No prior authorization required.",
+        "estimated_cost": "SAR 50 - 150"
+      },
+      {
         "cpt_code": "27447",
         "procedure_name": "Total Knee Arthroplasty",
         "category": "Orthopedic Surgery",
@@ -182,7 +59,68 @@
     ]
   },
   {
-    "policy_id": "POL-94871",
+    "policy_id": "POL-94787",
+    "insurer": "Medgulf",
+    "effective_date": "2024-01-01",
+    "version": "2024.1",
+    "coverage_rules": [
+      {
+        "cpt_code": "99213",
+        "procedure_name": "Office Visit - Established Patient",
+        "category": "Primary Care",
+        "requires_prior_auth": false,
+        "prerequisites": [],
+        "coverage_criteria": "No prior authorization required.",
+        "estimated_cost": "SAR 100 - 200"
+      },
+      {
+        "cpt_code": "29827",
+        "procedure_name": "Arthroscopy Shoulder",
+        "category": "Orthopedic Surgery",
+        "requires_prior_auth": true,
+        "prerequisites": [
+          "Failed physical therapy for 12 weeks",
+          "MRI documented tear"
+        ],
+        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Failed physical therapy for 12 weeks   - MRI documented tear Documented physical examination required. Imaging studies must be submitted with request.",
+        "estimated_cost": "SAR 8,000 - 15,000"
+      },
+      {
+        "cpt_code": "73721",
+        "procedure_name": "MRI Lower Extremity",
+        "category": "Radiology",
+        "requires_prior_auth": true,
+        "prerequisites": [
+          "Conservative therapy failed",
+          "X-ray completed"
+        ],
+        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Conservative therapy failed   - X-ray completed",
+        "estimated_cost": "SAR 1,500 - 3,000"
+      },
+      {
+        "cpt_code": "93000",
+        "procedure_name": "Electrocardiogram (ECG)",
+        "category": "Cardiology",
+        "requires_prior_auth": false,
+        "prerequisites": [],
+        "coverage_criteria": "No prior authorization required.",
+        "estimated_cost": "SAR 50 - 150"
+      },
+      {
+        "cpt_code": "45378",
+        "procedure_name": "Colonoscopy",
+        "category": "Gastroenterology",
+        "requires_prior_auth": true,
+        "prerequisites": [
+          "Age >= 45 OR family history OR symptoms"
+        ],
+        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Age >= 45 OR family history OR symptoms",
+        "estimated_cost": "SAR 2,000 - 4,000"
+      }
+    ]
+  },
+  {
+    "policy_id": "POL-23453",
     "insurer": "Solidarity Saudi Takaful",
     "effective_date": "2024-01-01",
     "version": "2024.1",
@@ -197,13 +135,16 @@
         "estimated_cost": "SAR 50 - 150"
       },
       {
-        "cpt_code": "88305",
-        "procedure_name": "Tissue Examination",
-        "category": "Pathology",
-        "requires_prior_auth": false,
-        "prerequisites": [],
-        "coverage_criteria": "No prior authorization required.",
-        "estimated_cost": "SAR 200 - 500"
+        "cpt_code": "29827",
+        "procedure_name": "Arthroscopy Shoulder",
+        "category": "Orthopedic Surgery",
+        "requires_prior_auth": true,
+        "prerequisites": [
+          "Failed physical therapy for 12 weeks",
+          "MRI documented tear"
+        ],
+        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Failed physical therapy for 12 weeks   - MRI documented tear Documented physical examination required. Imaging studies must be submitted with request.",
+        "estimated_cost": "SAR 8,000 - 15,000"
       },
       {
         "cpt_code": "99213",
@@ -213,18 +154,6 @@
         "prerequisites": [],
         "coverage_criteria": "No prior authorization required.",
         "estimated_cost": "SAR 100 - 200"
-      },
-      {
-        "cpt_code": "73721",
-        "procedure_name": "MRI Lower Extremity",
-        "category": "Radiology",
-        "requires_prior_auth": true,
-        "prerequisites": [
-          "Conservative therapy failed",
-          "X-ray completed"
-        ],
-        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Conservative therapy failed   - X-ray completed",
-        "estimated_cost": "SAR 1,500 - 3,000"
       },
       {
         "cpt_code": "27447",
@@ -237,15 +166,36 @@
         ],
         "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Failed conservative therapy for 6 months   - BMI < 40 Documented physical examination required. Imaging studies must be submitted with request.",
         "estimated_cost": "SAR 15,000 - 25,000"
+      },
+      {
+        "cpt_code": "88305",
+        "procedure_name": "Tissue Examination",
+        "category": "Pathology",
+        "requires_prior_auth": false,
+        "prerequisites": [],
+        "coverage_criteria": "No prior authorization required.",
+        "estimated_cost": "SAR 200 - 500"
       }
     ]
   },
   {
-    "policy_id": "POL-39694",
-    "insurer": "Al-Rajhi Takaful",
+    "policy_id": "POL-56712",
+    "insurer": "Bupa Arabia",
     "effective_date": "2024-01-01",
     "version": "2024.1",
     "coverage_rules": [
+      {
+        "cpt_code": "29827",
+        "procedure_name": "Arthroscopy Shoulder",
+        "category": "Orthopedic Surgery",
+        "requires_prior_auth": true,
+        "prerequisites": [
+          "Failed physical therapy for 12 weeks",
+          "MRI documented tear"
+        ],
+        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Failed physical therapy for 12 weeks   - MRI documented tear Documented physical examination required. Imaging studies must be submitted with request.",
+        "estimated_cost": "SAR 8,000 - 15,000"
+      },
       {
         "cpt_code": "70450",
         "procedure_name": "CT Head without Contrast",
@@ -267,6 +217,15 @@
         "estimated_cost": "SAR 200 - 500"
       },
       {
+        "cpt_code": "99213",
+        "procedure_name": "Office Visit - Established Patient",
+        "category": "Primary Care",
+        "requires_prior_auth": false,
+        "prerequisites": [],
+        "coverage_criteria": "No prior authorization required.",
+        "estimated_cost": "SAR 100 - 200"
+      },
+      {
         "cpt_code": "93000",
         "procedure_name": "Electrocardiogram (ECG)",
         "category": "Cardiology",
@@ -274,7 +233,15 @@
         "prerequisites": [],
         "coverage_criteria": "No prior authorization required.",
         "estimated_cost": "SAR 50 - 150"
-      },
+      }
+    ]
+  },
+  {
+    "policy_id": "POL-73565",
+    "insurer": "Medgulf",
+    "effective_date": "2024-01-01",
+    "version": "2024.1",
+    "coverage_rules": [
       {
         "cpt_code": "29827",
         "procedure_name": "Arthroscopy Shoulder",
@@ -288,16 +255,45 @@
         "estimated_cost": "SAR 8,000 - 15,000"
       },
       {
-        "cpt_code": "27447",
-        "procedure_name": "Total Knee Arthroplasty",
-        "category": "Orthopedic Surgery",
+        "cpt_code": "99213",
+        "procedure_name": "Office Visit - Established Patient",
+        "category": "Primary Care",
+        "requires_prior_auth": false,
+        "prerequisites": [],
+        "coverage_criteria": "No prior authorization required.",
+        "estimated_cost": "SAR 100 - 200"
+      },
+      {
+        "cpt_code": "70450",
+        "procedure_name": "CT Head without Contrast",
+        "category": "Radiology",
         "requires_prior_auth": true,
         "prerequisites": [
-          "Failed conservative therapy for 6 months",
-          "BMI < 40"
+          "Clinical indication documented"
         ],
-        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Failed conservative therapy for 6 months   - BMI < 40 Documented physical examination required. Imaging studies must be submitted with request.",
-        "estimated_cost": "SAR 15,000 - 25,000"
+        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Clinical indication documented",
+        "estimated_cost": "SAR 500 - 1,500"
+      },
+      {
+        "cpt_code": "93000",
+        "procedure_name": "Electrocardiogram (ECG)",
+        "category": "Cardiology",
+        "requires_prior_auth": false,
+        "prerequisites": [],
+        "coverage_criteria": "No prior authorization required.",
+        "estimated_cost": "SAR 50 - 150"
+      },
+      {
+        "cpt_code": "73721",
+        "procedure_name": "MRI Lower Extremity",
+        "category": "Radiology",
+        "requires_prior_auth": true,
+        "prerequisites": [
+          "Conservative therapy failed",
+          "X-ray completed"
+        ],
+        "coverage_criteria": "Prior authorization is mandatory before procedure. Patient must meet the following conditions:   - Conservative therapy failed   - X-ray completed",
+        "estimated_cost": "SAR 1,500 - 3,000"
       }
     ]
   }

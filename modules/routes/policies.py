@@ -11,6 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
 from modules.schemas.policy import GeneratePolicyRequest
+from modules.schemas.prescription import VALID_INSURERS
 from modules.services.policy_service import (
     generate_policy,
     get_policy_or_404,
@@ -22,20 +23,30 @@ from modules.services.submission_service import generate_policy_pdf_bytes
 router = APIRouter(prefix="/api", tags=["Policies"])
 
 
-@router.post("/generate-policy", summary="Auto-generate a synthetic policy")
+@router.post("/generate-policy", summary="Generate a synthetic insurance policy")
 async def api_generate_policy(
     body:    GeneratePolicyRequest,
     request: Request,
     db:      AsyncSession = Depends(get_db),
 ):
     """
-    Generate a synthetic insurance policy, persist it to the database,
-    and return the record.
+    Generate a synthetic insurance policy for one of the supported insurers,
+    persist it to the database, and return the record.
 
-    The `download_url` in the response is a direct PDF download link.
-    Open it in a browser or call `GET /api/download/policy/{id}` to
-    download the policy as a formatted PDF file.
+    Supported insurers: Bupa Arabia | Tawuniya | Al-Rajhi Takaful | Medgulf | Solidarity Saudi Takaful
+
+    The `download_url` in the response links directly to a PDF download.
+    Call `GET /api/download/policy/{id}` to retrieve the formatted PDF.
     """
+    if body.insurer and body.insurer not in VALID_INSURERS:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"Unknown insurer '{body.insurer}'. "
+                f"Valid options: {', '.join(VALID_INSURERS)}."
+            ),
+        )
+
     policy = await generate_policy(
         db=db,
         insurer=body.insurer,
@@ -49,19 +60,28 @@ async def api_generate_policy(
     }
 
 
-@router.post("/upload-policy", summary="Upload a PDF/DOCX policy document")
+@router.post("/upload-policy", summary="Upload, extract and store a policy document")
 async def api_upload_policy(
     request: Request,
     file:    UploadFile = File(...),
-    insurer: str        = Form(default="Unknown Insurer"),
+    insurer: str        = Form(default="Bupa Arabia"),
     db:      AsyncSession = Depends(get_db),
 ):
     """
-    Upload a policy document, extract coverage rules, and persist the record.
+    Upload a policy document (PDF / DOCX / TXT), extract coverage rules, and persist the record.
 
-    The `download_url` in the response links to the original uploaded file.
-    Call `GET /api/download/policy/{id}` to download it.
+    The insurer must be one of the supported names. The `download_url` in the response
+    links to the original uploaded file.
     """
+    if insurer not in VALID_INSURERS:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"Unknown insurer '{insurer}'. "
+                f"Valid options: {', '.join(VALID_INSURERS)}."
+            ),
+        )
+
     policy = await upload_policy(
         db=db,
         file=file,
@@ -71,7 +91,7 @@ async def api_upload_policy(
     return {
         "success":      True,
         "policy":       policy,
-        "message":      f"Processed {policy['filename']} — {policy['num_rules']} rule(s) extracted.",
+        "message":      f"Processed '{policy['filename']}' — {policy['num_rules']} rule(s) extracted.",
         "download_url": policy["download_url"],
     }
 
@@ -84,14 +104,24 @@ async def api_list_policies(
     """
     Return all policies, newest first.
 
-    Each policy includes a `download_url` that links to a downloadable PDF:
-      - Generated policies → PDF of all coverage rules, built on demand.
-      - Uploaded policies  → the original uploaded file (PDF/DOCX/TXT).
-
-    Call `GET /api/download/policy/{id}` to trigger the download.
+    Each policy includes a `download_url` linking to a downloadable PDF:
+    - Generated policies → PDF of all coverage rules, built on demand.
+    - Uploaded policies  → the original uploaded file.
     """
     policies = await list_policies(db=db, base_url=str(request.base_url))
-    return {"success": True, "policies": policies}
+    return {"success": True, "policies": policies, "count": len(policies)}
+
+
+@router.get("/policies/{policy_db_id}", summary="Get a single policy by ID")
+async def api_get_policy(
+    policy_db_id: int,
+    request:      Request,
+    db:           AsyncSession = Depends(get_db),
+):
+    """Fetch a single policy record by its database ID."""
+    record = await get_policy_or_404(db, policy_db_id)
+    from modules.services.policy_service import build_policy_dict
+    return {"success": True, "policy": build_policy_dict(record, str(request.base_url))}
 
 
 @router.get(
@@ -105,37 +135,24 @@ async def download_policy_file(
     """
     Download the file associated with a policy record as a PDF.
 
-    - **Generated policies** → builds a formatted PDF from the coverage rules
-      stored in the database and streams it directly. The PDF is created on
-      demand — no file needs to exist on disk.
+    - **Generated policies** → builds a formatted PDF on demand from coverage_rules in the DB.
+    - **Uploaded policies**  → serves the original uploaded file (PDF / DOCX / TXT).
 
-    - **Uploaded policies** → serves the original uploaded file (PDF/DOCX/TXT).
-
-    The `Content-Disposition: attachment` header forces the browser to save
-    the file rather than display it inline.
-
-    If `reportlab` is not installed, returns HTTP 503 with clear install instructions.
+    Returns HTTP 404 if the record does not exist.
     """
     record = await get_policy_or_404(db, policy_db_id)
 
-    # ── Generated policy — build PDF from DB coverage_rules ───────────────
+    # Generated policy — build PDF on demand
     if record.source == "generated":
         try:
             pdf_bytes = generate_policy_pdf_bytes(record)
         except ImportError:
             raise HTTPException(
                 status_code=503,
-                detail=(
-                    "PDF generation requires the 'reportlab' package. "
-                    "Install it by running: pip install reportlab  "
-                    "then restart the server."
-                ),
+                detail="PDF generation requires 'reportlab'. Install it and restart the server.",
             )
         except Exception as exc:
-            raise HTTPException(
-                status_code=500,
-                detail=f"PDF generation failed: {exc}",
-            )
+            raise HTTPException(status_code=500, detail=f"PDF generation failed: {exc}")
 
         safe_name = re.sub(r"[^A-Za-z0-9_-]", "_", record.policy_id)
         filename  = f"{safe_name}.pdf"
@@ -146,7 +163,7 @@ async def download_policy_file(
             headers={"Content-Disposition": f'attachment; filename="{filename}"'},
         )
 
-    # ── Uploaded policy — serve the original file ──────────────────────────
+    # Uploaded policy — serve original file
     if record.source == "uploaded" and record.file_path:
         file_path = Path(record.file_path)
         if not file_path.exists():
@@ -171,24 +188,17 @@ async def download_policy_file(
             headers={"Content-Disposition": f'attachment; filename="{filename}"'},
         )
 
-    # ── Fallback: old record with no file — generate PDF from coverage_rules ──
-    # This handles records created before the current policy_service was deployed
-    # where file_path may have pointed to a now-deleted .txt file.
+    # Fallback: generate PDF from coverage_rules for any edge case
     if record.coverage_rules:
         try:
             pdf_bytes = generate_policy_pdf_bytes(record)
         except ImportError:
             raise HTTPException(
                 status_code=503,
-                detail=(
-                    "PDF generation requires the 'reportlab' package. "
-                    "Install it by running: pip install reportlab  "
-                    "then restart the server."
-                ),
+                detail="PDF generation requires 'reportlab'. Install it and restart the server.",
             )
         safe_name = re.sub(r"[^A-Za-z0-9_-]", "_", record.policy_id)
         filename  = f"{safe_name}.pdf"
-
         return Response(
             content=pdf_bytes,
             media_type="application/pdf",

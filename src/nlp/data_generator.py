@@ -114,9 +114,42 @@ def _coverage_criteria(proc: dict) -> str:
 
 
 def _prereq_compliance(prerequisites: list, likelihood: str) -> list:
-    """Return the subset of prerequisites that are 'met' for a given likelihood."""
-    prob = _PREREQ_PROB.get(likelihood, 0.5)
-    return [p for p in prerequisites if random.random() < prob]
+    """
+    Return the subset of prerequisites that are 'met' for a given likelihood.
+    
+    Ensures a realistic distribution:
+    - High approval: 90-100% of prerequisites met
+    - Medium approval: 50-70% of prerequisites met
+    - Low approval: 10-30% of prerequisites met
+    """
+    if not prerequisites:
+        return []
+    
+    # Defining how many prerequisites should be met based on likelihood
+    num_prereqs = len(prerequisites)
+    
+    if likelihood == "high":
+        # For high approval: meet 80-100% of prerequisites
+        min_met = max(1, int(num_prereqs * 0.80))
+        max_met = num_prereqs
+        num_to_meet = random.randint(min_met, max_met)
+    elif likelihood == "medium":
+        # For medium approval: meet 40-70% of prerequisites
+        min_met = max(1, int(num_prereqs * 0.40))
+        max_met = max(1, int(num_prereqs * 0.70))
+        num_to_meet = random.randint(min_met, max_met)
+    else:  # low
+        # For low approval: meet 0-30% of prerequisites
+        max_met = max(0, int(num_prereqs * 0.30))
+        num_to_meet = random.randint(0, max_met)
+    
+    # Randomly select which prerequisites are met
+    if num_to_meet > 0:
+        met_prereqs = random.sample(prerequisites, min(num_to_meet, num_prereqs))
+    else:
+        met_prereqs = []
+    
+    return met_prereqs
 
 
 # Public API
@@ -153,8 +186,8 @@ def generate_policy(insurer: str = None, num_procedures: int = 5) -> dict:
     return {
         "policy_id":      f"POL-{random.randint(10000, 99999)}",
         "insurer":        insurer,
-        "effective_date": "2024-01-01",
-        "version":        "2024.1",
+        "effective_date": "2026-01-01",
+        "version":        "2026.1",
         "coverage_rules": rules,
     }
 
@@ -191,7 +224,23 @@ def generate_pa_request(policy: dict = None, approval_likelihood: str = "random"
     diag_code = random.choice(list(DIAGNOSES.keys()))
     prereqs_met = _prereq_compliance(rule["prerequisites"], approval_likelihood)
 
-    prereqs_str = str(rule["prerequisites"])
+    # Generate clinical info based on approval likelihood
+    # High approval: better compliance with clinical parameters
+    # Medium approval: moderate compliance
+    # Low approval: poor compliance
+    if approval_likelihood == "high":
+        therapy_weeks = random.randint(8, 24)
+        imaging_completed = random.choice([True, True, False])  # 67% True
+        bmi = round(random.uniform(20, 35), 1)  # Better BMI
+    elif approval_likelihood == "medium":
+        therapy_weeks = random.randint(4, 16)
+        imaging_completed = random.choice([True, False])  # 50% True
+        bmi = round(random.uniform(25, 38), 1)  # Medium BMI
+    else:  # low
+        therapy_weeks = random.randint(0, 6)
+        imaging_completed = random.choice([False, False, True])  # 33% True
+        bmi = round(random.uniform(30, 45), 1)  # Higher BMI
+
     return {
         "request_id":   f"PA-{random.randint(100000, 999999)}",
         "timestamp":    datetime.now().isoformat(),
@@ -208,15 +257,9 @@ def generate_pa_request(policy: dict = None, approval_likelihood: str = "random"
         },
         "clinical_info": {
             "prerequisites_met": prereqs_met,
-            "conservative_therapy_duration_weeks": (
-                random.randint(0, 24) if "therapy" in prereqs_str else None
-            ),
-            "imaging_completed": (
-                random.choice([True, False]) if "imaging" in prereqs_str.lower() else None
-            ),
-            "bmi": (
-                round(random.uniform(20, 45), 1) if "BMI" in prereqs_str else None
-            ),
+            "conservative_therapy_duration_weeks": therapy_weeks,
+            "imaging_completed": imaging_completed,
+            "bmi": bmi,
         },
         "requesting_physician": {
             "name":           f"Dr. {random.choice(FIRST_NAMES)} {random.choice(LAST_NAMES)}",
@@ -246,8 +289,8 @@ def generate_dataset(num_policies: int = 5, requests_per_policy: int = 20):
 def save_dataset(policies: list, requests: list, output_dir: Path = None):
     """Save dataset to JSON files in output_dir."""
     if output_dir is None:
-        from config import SYNTHETIC_DATA_DIR
-        output_dir = SYNTHETIC_DATA_DIR
+        from core.config import BACKEND_DIR
+        output_dir = BACKEND_DIR / "data" / "synthetic"
 
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)

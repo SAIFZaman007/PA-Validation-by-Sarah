@@ -1,11 +1,13 @@
 """
 Submission service — business logic for PA request validation.
 
-Two modes share one code path:
-  Mode 1 — Auto-generate (no file, likelihood from dropdown)
-  Mode 2 — File upload   (clinical document PDF or DOCX)
+Single mode: Upload a prescription PDF, select an insurer (policy is auto-
+loaded), cross-check prescription against policy, run ML pipeline, return
+a detailed validation report with download link.
 
-Both modes run the same ML pipeline and persist to validation_results.
+The prediction is deterministic for the same prescription + policy pair
+(same features → same model output). Reasoning is generated from the
+stored routing result, so downloading the PDF later gives the same content.
 """
 
 import io
@@ -40,7 +42,7 @@ def _allowed_file(filename: str) -> bool:
 
 
 async def _save_upload(file: UploadFile, subfolder: str) -> Tuple[str, str]:
-    """Save an uploaded file with a UUID prefix. Returns (original_name, absolute_path)."""
+    """Save uploaded file with UUID prefix. Returns (original_name, abs_path)."""
     original  = file.filename or "upload"
     safe      = re.sub(r"[^\w.\-]", "_", original)
     unique    = f"{uuid.uuid4().hex}_{safe}"
@@ -56,25 +58,14 @@ async def _save_upload(file: UploadFile, subfolder: str) -> Tuple[str, str]:
 
 
 def _extract_text_from_file(file_bytes: bytes, filename: str) -> str:
-    """
-    Extract plain text from an uploaded document.
-
-    Supports:
-      - PDF  -> pdfplumber (page-by-page extraction)
-      - TXT  -> direct UTF-8 decode
-      - DOCX -> python-docx paragraph extraction (if installed)
-
-    Returns an empty string on any extraction failure.
-    """
+    """Extract plain text from PDF / TXT / DOCX. Returns empty string on failure."""
     ext = Path(filename).suffix.lower()
 
     if ext == ".pdf":
         try:
             import pdfplumber
             with pdfplumber.open(io.BytesIO(file_bytes)) as pdf:
-                return "\n".join(
-                    (page.extract_text() or "") for page in pdf.pages
-                )
+                return "\n".join((page.extract_text() or "") for page in pdf.pages)
         except Exception as exc:
             print(f"[PDF] Extraction failed — {exc}")
             return ""
@@ -105,19 +96,6 @@ def _assess_extraction_quality(
     icd10_codes: list,
     filename: str,
 ) -> dict:
-    """
-    Assess whether the uploaded file contained useful clinical data.
-
-    Returns a dict with:
-      extraction_status  — "success" | "partial" | "failed"
-      extraction_warning — human-readable message, or None
-      chars_extracted    — raw character count
-
-    Rules:
-      failed  — no text at all (image-only, binary, password-protected file)
-      partial — text exists but zero CPT/ICD-10 codes found (irrelevant document)
-      success — text AND at least one clinical code found
-    """
     chars = len(extracted_text.strip())
 
     if chars == 0:
@@ -125,9 +103,8 @@ def _assess_extraction_quality(
             "extraction_status":  "failed",
             "extraction_warning": (
                 f"No readable text could be extracted from '{filename}'. "
-                "The file may be scanned, image-only, password-protected, or "
-                "in an unsupported format.  Please upload a text-selectable PDF, "
-                "DOCX, or TXT file that contains clinical prior-authorisation data."
+                "The file may be scanned, image-only, or password-protected. "
+                "Please upload a text-selectable PDF, DOCX, or TXT file."
             ),
             "chars_extracted": 0,
         }
@@ -137,10 +114,8 @@ def _assess_extraction_quality(
             "extraction_status":  "partial",
             "extraction_warning": (
                 f"Text was extracted from '{filename}' ({chars:,} characters), "
-                "but no CPT procedure codes or ICD-10 diagnosis codes were found.  "
-                "This document does not appear to be a clinical prior-authorisation "
-                "record.  Please upload a document that contains valid CPT and/or "
-                "ICD-10 codes so the ML pipeline can produce a meaningful result."
+                "but no CPT procedure codes or ICD-10 diagnosis codes were found. "
+                "This document does not appear to be a clinical prior-authorisation record."
             ),
             "chars_extracted": chars,
         }
@@ -153,12 +128,7 @@ def _assess_extraction_quality(
 
 
 def _build_clinical_context_from_text(extracted_text: str, base_policy: dict) -> tuple:
-    """
-    Enrich the PA request context with data parsed from the uploaded document.
-
-    Extracts CPT and ICD-10 codes from the text and attaches them as hints
-    so the generator produces a request that reflects the document content.
-    """
+    """Enrich the context dict with CPT/ICD-10 codes extracted from the document."""
     import re as _re
     from core.config import ICD10_PATTERN
 
@@ -166,7 +136,6 @@ def _build_clinical_context_from_text(extracted_text: str, base_policy: dict) ->
     icd10_codes = list(set(_re.findall(ICD10_PATTERN, extracted_text)))[:5]
 
     context = dict(base_policy)
-
     if cpt_codes:
         context["extracted_cpt_codes"]   = cpt_codes
     if icd10_codes:
@@ -183,106 +152,122 @@ def _build_reasoning(
     routing: dict,
     source: str,
     extraction_quality: Optional[dict] = None,
+    policy_insurer: Optional[str] = None,
 ) -> str:
     """
-    Produce a plain-English reasoning statement that explains how reliable
-    the ML routing decision is and how it was reached.
+    Produce a comprehensive industry-standard reasoning statement explaining
+    the ML routing decision with clinical rationale, confidence metrics, and
+    actionable next steps.
     """
-    confidence   = routing["confidence"]
-    tier         = routing["tier"]
-    approve_prob = routing["approve_probability"]
-    deny_prob    = routing["deny_probability"]
+    confidence   = routing.get("confidence", 0.5)
+    tier         = routing.get("tier", "manual_review")
+    approve_prob = routing.get("approve_probability", 0.5)
+    deny_prob    = routing.get("deny_probability", 0.5)
+    action       = routing.get("action", "REVIEW").upper()
 
-    # Confidence band
     if confidence >= 0.90:
-        confidence_label = "HIGH"
-        reliability_note = (
-            "The result carries very high reliability and is suitable for "
-            "automated processing without additional review."
+        confidence_tier, reliability_class = "VERY HIGH", "CONFIDENCE_A"
+        recommendation = "suitable for autonomous processing"
+    elif confidence >= 0.80:
+        confidence_tier, reliability_class = "HIGH", "CONFIDENCE_B"
+        recommendation = "recommended for priority automated processing with standard audit trail"
+    elif confidence >= 0.70:
+        confidence_tier, reliability_class = "MODERATE-HIGH", "CONFIDENCE_C"
+        recommendation = "suitable for processing pending brief supervisor validation"
+    elif confidence >= 0.60:
+        confidence_tier, reliability_class = "MODERATE", "CONFIDENCE_D"
+        recommendation = "recommended for clinical team review before processing"
+    else:
+        confidence_tier, reliability_class = "LOW", "CONFIDENCE_E"
+        recommendation = "requires full clinical review and physician evaluation"
+
+    decision_statement = f"This PA request has been {action.lower()} by the system."
+
+    if tier == "auto_approve":
+        clinical_basis = (
+            f"The prescription meets established coverage criteria with high clinical index. "
+            f"Approval probability score: {approve_prob * 100:.1f}%. "
+            f"Clinical indicators support medical necessity for the requested procedure."
         )
-    elif confidence >= 0.75:
-        confidence_label = "MODERATE"
-        reliability_note = (
-            "The result carries moderate reliability.  A brief human "
-            "spot-check is advisable before acting on this decision."
+    elif tier == "auto_deny":
+        clinical_basis = (
+            f"The prescription does not meet established coverage criteria or clinical guidelines. "
+            f"Denial probability score: {deny_prob * 100:.1f}%. "
+            f"Clinical indicators suggest insufficient justification for the requested procedure."
         )
     else:
-        confidence_label = "LOW"
-        reliability_note = (
-            "Confidence is below the auto-routing threshold.  This case "
-            "has been escalated for manual clinical review."
+        clinical_basis = (
+            f"The prescription presents mixed clinical indicators requiring expert judgment. "
+            f"Approval probability: {approve_prob * 100:.1f}% | Denial probability: {deny_prob * 100:.1f}%. "
+            f"Recommend clinical review to evaluate nuanced factors and patient-specific circumstances."
         )
 
-    # Routing tier phrase
-    tier_phrases = {
-        "auto_approve":  "automatically approved",
-        "auto_deny":     "automatically denied",
-        "manual_review": "escalated for manual clinical review",
+    confidence_statement = (
+        f"Confidence: {confidence_tier} ({confidence * 100:.2f}%, "
+        f"Classification: {reliability_class}). "
+        f"Result {recommendation}."
+    )
+
+    insurer_note = f" Policy insurer: {policy_insurer}." if policy_insurer else ""
+
+    if source == "prescription_upload":
+        quality_note = (
+            f"Request Type: Prescription PDF Upload.{insurer_note} "
+            f"Prescription was cross-checked against the selected insurer's active policy. "
+            f"Decision is based on extracted clinical codes and policy coverage rules."
+        )
+        if extraction_quality:
+            chars = extraction_quality.get("chars_extracted", 0)
+            status = extraction_quality.get("extraction_status", "unknown")
+            quality_note += (
+                f" Document extraction: {status.upper()} ({chars:,} characters extracted)."
+            )
+    else:
+        quality_note = (
+            f"Request Type: Auto-Generated (Demonstration).{insurer_note} "
+            f"This result is based on synthetic PA request data for testing purposes."
+        )
+
+    next_steps = {
+        "auto_approve": "APPROVED FOR PROCESSING — Proceed with care authorisation per coverage plan terms.",
+        "auto_deny":    "DENIED — Refer to patient/provider with specific denial rationale and appeal process information.",
+        "manual_review":"ESCALATED FOR CLINICAL REVIEW — Assign to medical reviewer within 24 hours.",
     }
-    tier_text = tier_phrases.get(tier, tier)
+    next_step_text = next_steps.get(tier, "REVIEW REQUIRED — Assign for clinical assessment.")
 
     parts = [
-        f"Decision confidence: {confidence_label} ({confidence * 100:.1f}%).",
-        f"This PA request was {tier_text}.",
-        f"Approval probability: {approve_prob * 100:.1f}% | "
-        f"Denial probability: {deny_prob * 100:.1f}%.",
-        reliability_note,
+        f"\n DECISION: {decision_statement}",
+        f"\n CLINICAL BASIS: {clinical_basis}",
+        f"\n CONFIDENCE: {confidence_statement}",
+        f"\n DATA QUALITY: {quality_note}",
+        f"\n RECOMMENDED ACTION: {next_step_text}",
     ]
-
-    # Source context
-    if source == "file_upload" and extraction_quality:
-        chars = extraction_quality.get("chars_extracted", 0)
-        parts.append(
-            f"The uploaded clinical document was successfully parsed "
-            f"({chars:,} characters extracted) and contributed to the "
-            f"validation decision."
-        )
-    elif source == "auto_generated":
-        parts.append(
-            "This result is based on a synthetically generated PA request "
-            "and is intended for demonstration and testing purposes only."
-        )
-
-    return "  ".join(parts)
+    return " ".join(parts)
 
 
 # ── PDF generators ────────────────────────────────────────────────────────────
 
 def _pdf_styles():
-    """Return a dict of shared ReportLab ParagraphStyles."""
     from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
     from reportlab.lib        import colors
-
     styles = getSampleStyleSheet()
     return {
-        "label": ParagraphStyle(
-            "PALabel", parent=styles["Normal"],
-            fontSize=9, textColor=colors.HexColor("#555555"),
-        ),
-        "title": ParagraphStyle(
-            "PATitle", parent=styles["Title"],
-            fontSize=18, textColor=colors.HexColor("#1a3a5c"), spaceAfter=4,
-        ),
-        "heading": ParagraphStyle(
-            "PAHeading", parent=styles["Heading2"],
-            fontSize=11, textColor=colors.HexColor("#1a3a5c"),
-            spaceBefore=12, spaceAfter=4,
-        ),
-        "body": ParagraphStyle(
-            "PABody", parent=styles["Normal"], fontSize=10, leading=14,
-        ),
-        "small": ParagraphStyle(
-            "PASmall", parent=styles["Normal"],
-            fontSize=8, textColor=colors.HexColor("#777777"), leading=11,
-        ),
+        "label": ParagraphStyle("PALabel", parent=styles["Normal"],
+                                fontSize=9, textColor=colors.HexColor("#555555")),
+        "title": ParagraphStyle("PATitle", parent=styles["Title"],
+                                fontSize=18, textColor=colors.HexColor("#1a3a5c"), spaceAfter=4),
+        "heading": ParagraphStyle("PAHeading", parent=styles["Heading2"],
+                                  fontSize=11, textColor=colors.HexColor("#1a3a5c"),
+                                  spaceBefore=12, spaceAfter=4),
+        "body":  ParagraphStyle("PABody", parent=styles["Normal"], fontSize=10, leading=14),
+        "small": ParagraphStyle("PASmall", parent=styles["Normal"],
+                                fontSize=8, textColor=colors.HexColor("#777777"), leading=11),
     }
 
 
 def _table_style(header_bg=None):
-    """Return a standard TableStyle for data tables."""
     from reportlab.lib import colors
     from reportlab.platypus import TableStyle
-
     rows = [
         ("FONTSIZE",      (0, 0), (-1, -1), 9),
         ("TEXTCOLOR",     (0, 0), (0, -1), colors.HexColor("#555555")),
@@ -302,12 +287,10 @@ def _table_style(header_bg=None):
 
 def generate_policy_pdf_bytes(record) -> bytes:
     """
-    Render a formatted PDF for a policy record (generated or uploaded).
+    Render a formatted PDF for a policy record.
 
-    For generated policies:  builds from coverage_rules stored in the DB.
-    For uploaded policies:   this is not called — the original file is served.
-
-    Returns raw PDF bytes ready to stream as a Response.
+    For generated policies: builds from coverage_rules stored in the DB.
+    For uploaded policies:  this is not called — the original file is served.
     """
     from reportlab.lib.pagesizes  import A4
     from reportlab.platypus       import (
@@ -316,27 +299,22 @@ def generate_policy_pdf_bytes(record) -> bytes:
     from reportlab.lib            import colors
     from reportlab.lib.units      import cm
 
-    buf    = io.BytesIO()
-    st     = _pdf_styles()
+    buf = io.BytesIO()
+    st  = _pdf_styles()
 
     doc = SimpleDocTemplate(
-        buf,
-        pagesize=A4,
+        buf, pagesize=A4,
         topMargin=2*cm, bottomMargin=2*cm,
         leftMargin=2*cm, rightMargin=2*cm,
-        title=f"Policy {record.policy_id}",
-        author="PA Validation System",
+        title=f"Policy {record.policy_id}", author="PA Validation System",
     )
 
     story = []
-
-    # Header
     story.append(Paragraph("PA Validation System", st["label"]))
     story.append(Paragraph("Insurance Policy Document", st["title"]))
     story.append(HRFlowable(width="100%", thickness=2, color=colors.HexColor("#1a3a5c")))
     story.append(Spacer(1, 0.3*cm))
 
-    # Policy metadata
     created = (
         record.created_at.strftime("%Y-%m-%d %H:%M UTC")
         if record.created_at else "N/A"
@@ -355,7 +333,6 @@ def generate_policy_pdf_bytes(record) -> bytes:
     story.append(meta_table)
     story.append(Spacer(1, 0.5*cm))
 
-    # All coverage rules section — all 5 rules, full detail
     story.append(Paragraph("Coverage Rules — All Procedures", st["heading"]))
     story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#aaaaaa")))
     story.append(Spacer(1, 0.2*cm))
@@ -367,13 +344,11 @@ def generate_policy_pdf_bytes(record) -> bytes:
         for i, rule in enumerate(coverage_rules, 1):
             prereqs     = rule.get("prerequisites") or []
             prereq_text = "\n".join(f"• {p}" for p in prereqs) if prereqs else "None"
-
             story.append(Paragraph(
                 f"Rule {i}:  {rule.get('procedure_name', 'N/A')}  "
                 f"(CPT: {rule.get('cpt_code', 'N/A')})",
                 st["heading"],
             ))
-
             rule_data = [
                 ["Category",          rule.get("category", "N/A")],
                 ["Requires PA",       "Yes" if rule.get("requires_prior_auth") else "No"],
@@ -381,19 +356,17 @@ def generate_policy_pdf_bytes(record) -> bytes:
                 ["Coverage Criteria", rule.get("coverage_criteria", "N/A")],
                 ["Prerequisites",     prereq_text],
             ]
-
             rule_table = Table(rule_data, colWidths=[4*cm, 12*cm])
             rule_table.setStyle(_table_style())
             story.append(rule_table)
             story.append(Spacer(1, 0.3*cm))
 
-    # Disclaimer footer
     story.append(Spacer(1, 0.5*cm))
     story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#aaaaaa")))
     story.append(Spacer(1, 0.2*cm))
     story.append(Paragraph(
         "This document was auto-generated by the PA Validation System for testing and "
-        "demonstration purposes only.  It does not constitute a legally binding insurance policy.  "
+        "demonstration purposes only. It does not constitute a legally binding insurance policy. "
         "PA Validation System  |  Queen Mary University of London  |  2026",
         st["small"],
     ))
@@ -405,29 +378,23 @@ def generate_policy_pdf_bytes(record) -> bytes:
 
 def generate_validation_report_bytes(record) -> bytes:
     """
-    Render a formatted PDF validation result report for a submission.
+    Render a formatted PDF validation result report.
 
-    Includes:
-      - result_id highlighted prominently (so users know the right ID)
-      - Colour-coded routing decision banner
-      - All policy coverage rules evaluated (all 5 CPT blocks)
-      - Per-rule PA requirement status for the submitted procedure
-      - Patient, procedure, diagnosis, reasoning
-
-    Used by GET /api/download/request/{result_id}.
-    Returns raw PDF bytes.
+    Includes: result_id, routing decision banner, probability scores, reasoning,
+    patient/procedure/diagnosis data, all policy rules evaluated.
     """
     from reportlab.lib.pagesizes  import A4
     from reportlab.platypus       import (
         SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable
     )
+    from reportlab.lib.styles     import getSampleStyleSheet, ParagraphStyle
     from reportlab.lib            import colors
     from reportlab.lib.units      import cm
+    from reportlab.platypus       import TableStyle as TS
 
     buf = io.BytesIO()
     st  = _pdf_styles()
 
-    # Decision colours per tier
     tier_colors = {
         "auto_approve":  colors.HexColor("#1a7a3e"),
         "auto_deny":     colors.HexColor("#a31b1b"),
@@ -448,27 +415,19 @@ def generate_validation_report_bytes(record) -> bytes:
     tier_bg        = tier_backgrounds.get(record.routing_tier, colors.white)
     decision_label = tier_labels.get(record.routing_tier, record.routing_action)
 
-    decision_style = _pdf_styles()["heading"].__class__(
-        "PADecision", parent=_pdf_styles()["heading"],
-        fontSize=13, textColor=tier_color, spaceAfter=0, spaceBefore=0,
-    )
-    # Rebuild with correct parent
-    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-    styles_base = getSampleStyleSheet()
+    styles_base    = getSampleStyleSheet()
     decision_style = ParagraphStyle(
         "PADecision", parent=styles_base["Heading2"],
         fontSize=13, textColor=tier_color, spaceAfter=0, spaceBefore=0,
     )
 
     doc = SimpleDocTemplate(
-        buf,
-        pagesize=A4,
+        buf, pagesize=A4,
         topMargin=2*cm, bottomMargin=2*cm,
         leftMargin=2*cm, rightMargin=2*cm,
         title=f"Validation Result — {record.request_id}",
         author="PA Validation System",
     )
-
     story = []
 
     # Header
@@ -477,7 +436,7 @@ def generate_validation_report_bytes(record) -> bytes:
     story.append(HRFlowable(width="100%", thickness=2, color=colors.HexColor("#1a3a5c")))
     story.append(Spacer(1, 0.3*cm))
 
-    # Reference IDs — result_id first and highlighted
+    # Reference block
     ref_data = [
         ["result_id  (use for PDF download)", str(record.id)],
         ["Request ID",                        record.request_id or "N/A"],
@@ -485,11 +444,13 @@ def generate_validation_report_bytes(record) -> bytes:
         ["Source",                            record.source.replace("_", " ").title()],
         ["Insurer",                           record.insurer or "N/A"],
     ]
+    if record.policy_id_used:
+        ref_data.append(["Policy Used",  record.policy_id_used])
+    if record.uploaded_filename:
+        ref_data.append(["Uploaded File", record.uploaded_filename])
+
     ref_table = Table(ref_data, colWidths=[5.5*cm, 10.5*cm])
-    ref_ts = _table_style()
-    # Highlight result_id row
-    from reportlab.platypus import TableStyle as TS
-    ref_table.setStyle(TS(list(ref_ts._cmds) + [
+    ref_table.setStyle(TS(list(_table_style()._cmds) + [
         ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#e8f0fb")),
         ("TEXTCOLOR",  (1, 0), (1, 0),  colors.HexColor("#1a3a5c")),
         ("FONTNAME",   (1, 0), (1, 0),  "Helvetica-Bold"),
@@ -528,13 +489,17 @@ def generate_validation_report_bytes(record) -> bytes:
 
     # Reasoning
     stored_routing = record.full_routing_json or {}
-    reasoning_text = _build_reasoning(stored_routing, source=record.source or "auto_generated")
+    reasoning_text = _build_reasoning(
+        stored_routing,
+        source=record.source or "prescription_upload",
+        policy_insurer=record.policy_insurer,
+    )
     story.append(Paragraph("Reasoning", st["heading"]))
     story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#aaaaaa")))
     story.append(Spacer(1, 0.15*cm))
     story.append(Paragraph(reasoning_text, st["body"]))
 
-    # Patient information
+    # Patient
     story.append(Paragraph("Patient Information", st["heading"]))
     story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#aaaaaa")))
     story.append(Spacer(1, 0.15*cm))
@@ -548,26 +513,23 @@ def generate_validation_report_bytes(record) -> bytes:
     story.append(patient_table)
     story.append(Spacer(1, 0.3*cm))
 
-    # Requested procedure + diagnosis
+    # Procedure + Diagnosis
     story.append(Paragraph("Requested Procedure & Diagnosis", st["heading"]))
     story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#aaaaaa")))
     story.append(Spacer(1, 0.15*cm))
     proc_data = [
-        ["CPT Code",   record.cpt_code           or "N/A"],
-        ["Procedure",  record.procedure_name      or "N/A"],
-        ["Category",   record.procedure_category  or "N/A"],
-        ["ICD-10",     record.icd10_code          or "N/A"],
-        ["Diagnosis",  record.diagnosis_desc      or "N/A"],
+        ["CPT Code",  record.cpt_code           or "N/A"],
+        ["Procedure", record.procedure_name      or "N/A"],
+        ["Category",  record.procedure_category  or "N/A"],
+        ["ICD-10",    record.icd10_code          or "N/A"],
+        ["Diagnosis", record.diagnosis_desc      or "N/A"],
     ]
     proc_table = Table(proc_data, colWidths=[5.5*cm, 10.5*cm])
     proc_table.setStyle(_table_style())
     story.append(proc_table)
     story.append(Spacer(1, 0.3*cm))
 
-    # ── All policy coverage rules evaluated ───────────────────────────────
-    # Pull the full coverage_rules list from full_request_json (which contains
-    # the policy context passed to generate_pa_request).  This gives us all
-    # 5 CPT blocks, not just the single matched one.
+    # All policy coverage rules
     stored_request = record.full_request_json or {}
     policy_rules   = stored_request.get("coverage_rules", [])
     requested_cpt  = record.cpt_code
@@ -589,7 +551,6 @@ def generate_validation_report_bytes(record) -> bytes:
             prereqs   = rule.get("prerequisites") or []
             prereq_str= "\n".join(f"• {p}" for p in prereqs) if prereqs else "None required"
 
-            # Mark which rule was the one matched to this PA request
             is_matched = (cpt == requested_cpt)
             rule_label = (
                 f"Rule {i}: {proc_name}  (CPT: {cpt})  ← MATCHED TO THIS REQUEST"
@@ -599,25 +560,16 @@ def generate_validation_report_bytes(record) -> bytes:
             story.append(Paragraph(rule_label, st["heading"]))
 
             rule_rows = [
-                ["Category",     cat],
-                ["Requires PA",  req_pa],
-                ["Cost Est.",    cost],
-                ["Prerequisites",prereq_str],
+                ["Category",      cat],
+                ["Requires PA",   req_pa],
+                ["Cost Est.",     cost],
+                ["Prerequisites", prereq_str],
             ]
             rt = Table(rule_rows, colWidths=[4*cm, 12*cm])
-            extra = []
-            if is_matched:
-                extra = [("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#fffde8"))]
+            extra = [("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#fffde8"))] if is_matched else []
             rt.setStyle(TS(list(_table_style()._cmds) + extra))
             story.append(rt)
             story.append(Spacer(1, 0.3*cm))
-
-    # Uploaded document note
-    if record.source == "file_upload" and record.uploaded_filename:
-        story.append(Paragraph("Uploaded Clinical Document", st["heading"]))
-        story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#aaaaaa")))
-        story.append(Spacer(1, 0.15*cm))
-        story.append(Paragraph(f"Filename: {record.uploaded_filename}", st["body"]))
 
     # Footer
     story.append(Spacer(1, 0.6*cm))
@@ -636,13 +588,12 @@ def generate_validation_report_bytes(record) -> bytes:
     return buf.read()
 
 
-# Alias kept for any code that imports the old name
+# Backward-compatible alias
 def get_result_report_bytes(record) -> bytes:
-    """Alias for generate_validation_report_bytes — returns PDF bytes."""
     return generate_validation_report_bytes(record)
 
 
-# ── Statistics helper ─────────────────────────────────────────────────────────
+# ── Statistics ────────────────────────────────────────────────────────────────
 
 async def live_stats(db: AsyncSession) -> dict:
     """Calculate live routing statistics from the database."""
@@ -665,132 +616,120 @@ async def live_stats(db: AsyncSession) -> dict:
         .where(ValidationResult.routing_tier == "manual_review")
     )).scalar() or 0
 
+    # Insurer breakdown
+    from sqlalchemy import text as sa_text
+    insurer_rows = (await db.execute(
+        select(ValidationResult.insurer, func.count(ValidationResult.id))
+        .group_by(ValidationResult.insurer)
+        .order_by(func.count(ValidationResult.id).desc())
+    )).all()
+
+    by_insurer = [{"insurer": row[0] or "Unknown", "count": row[1]} for row in insurer_rows]
+
     return {
         "total_requests": total,
         "auto_approved":  auto_approved,
         "auto_denied":    auto_denied,
         "manual_review":  manual_review,
+        "by_insurer":     by_insurer,
     }
+
+
+# ── Policy lookup ─────────────────────────────────────────────────────────────
+
+async def _get_policy_by_insurer(db: AsyncSession, insurer: str) -> Policy:
+    """
+    Fetch the most recent policy for the given insurer.
+    Raises HTTP 400 when no policy exists for that insurer.
+    """
+    result = await db.execute(
+        select(Policy)
+        .where(Policy.insurer == insurer)
+        .order_by(Policy.created_at.desc())
+        .limit(1)
+    )
+    policy = result.scalar_one_or_none()
+
+    if policy is None:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"No policy found for insurer '{insurer}'. "
+                f"Please generate or upload a policy for this insurer first via "
+                f"POST /api/generate-policy or POST /api/upload-policy."
+            ),
+        )
+    return policy
+
+
+async def _get_all_insurers_with_policies(db: AsyncSession) -> list:
+    """Return distinct insurers that have at least one policy in the DB."""
+    result = await db.execute(
+        select(Policy.insurer).distinct().order_by(Policy.insurer)
+    )
+    return [row[0] for row in result.all()]
 
 
 # ── Core submission logic ─────────────────────────────────────────────────────
 
-async def _get_latest_policy_context(db: AsyncSession) -> dict:
-    """Fetch the most recently created policy. Raises HTTP 400 when none exist."""
-    result = await db.execute(
-        select(Policy).order_by(Policy.created_at.desc()).limit(1)
-    )
-    latest = result.scalar_one_or_none()
-
-    if latest is None:
-        raise HTTPException(
-            status_code=400,
-            detail="No policies found. Generate or upload a policy first.",
-        )
-
-    return {
-        "policy_id":      latest.policy_id,
-        "insurer":        latest.insurer,
-        "coverage_rules": latest.coverage_rules,   # all 5 rules included
-    }
-
-
-async def submit_autogenerate(
-    db:         AsyncSession,
-    likelihood: str,
-    base_url:   str,
+async def submit_prescription_upload(
+    db:       AsyncSession,
+    file:     UploadFile,
+    insurer:  str,
+    base_url: str,
 ) -> dict:
     """
-    Mode 1 — Generate a synthetic PA request, run ML pipeline, persist result.
+    Upload a prescription PDF, extract the exact patient and clinical data from it,
+    cross-check against the selected insurer's policy, run the ML pipeline,
+    and persist the result.
 
-    The policy context passed to the generator includes all coverage_rules so
-    they are stored in full_request_json and appear in the downloaded PDF report.
+    The prescription data in the response and stored record always reflects the
+    ACTUAL content of the uploaded file — not randomly generated data.
+    The prediction is deterministic for the same prescription + policy pair.
     """
     if router is None:
         raise HTTPException(
             status_code=503,
-            detail="ML model not loaded. Run: python src/ml/train_model_simple.py",
-        )
-
-    policy_context = await _get_latest_policy_context(db)
-
-    # generate_pa_request picks ONE rule from the policy for the PA request
-    # (the one with requires_prior_auth=True) but we pass the full policy so
-    # all coverage_rules end up in the persisted full_request_json
-    pa_request = generator.generate_pa_request(
-        policy=policy_context,
-        approval_likelihood=likelihood,
-    )
-
-    # Embed the full policy coverage_rules into the request for audit/reporting
-    pa_request["coverage_rules"] = policy_context["coverage_rules"]
-
-    features  = engineer.create_features(pa_request, get_policy_rules())
-    routing   = router.route_case(features)
-    reasoning = _build_reasoning(routing, source="auto_generated")
-
-    record = await _persist_result(
-        db, pa_request, routing, source="auto_generated",
-        uploaded_filename=None, uploaded_file_path=None,
-    )
-
-    stats        = await live_stats(db)
-    download_url = f"{base_url.rstrip('/')}/api/download/request/{record.id}"
-
-    return {
-        "success":            True,
-        "result_id":          record.id,
-        "download_url":       download_url,
-        "routing":            routing,
-        "reasoning":          reasoning,
-        "request":            pa_request,
-        "features":           features,
-        "stats":              stats,
-        "record_id":          record.id,   # backward-compatibility alias
-        "extraction_status":  None,
-        "extraction_warning": None,
-    }
-
-
-async def submit_file_upload(
-    db:         AsyncSession,
-    file:       UploadFile,
-    likelihood: str,
-    base_url:   str,
-) -> dict:
-    """
-    Mode 2 — Upload a clinical document, extract its data, run ML pipeline.
-
-    The full policy coverage_rules are embedded in the request so all 5 CPT
-    blocks appear in the downloaded validation result PDF.
-    """
-    if router is None:
-        raise HTTPException(
-            status_code=503,
-            detail="ML model not loaded. Run: python src/ml/train_model_simple.py",
+            detail="ML model not loaded. Run: python src/ml/train_model.py",
         )
 
     if not _allowed_file(file.filename or ""):
         raise HTTPException(
             status_code=400,
             detail=(
-                f"File type not allowed.  "
-                f"Accepted formats: {', '.join(sorted(settings.ALLOWED_EXTENSIONS))}.  "
-                "Please upload a PDF, DOCX, or TXT file containing clinical data."
+                f"File type not allowed. "
+                f"Accepted formats: {', '.join(sorted(settings.ALLOWED_EXTENSIONS))}."
             ),
         )
 
-    # Read file bytes once — reuse for extraction and disk save
+    # Load the policy for the selected insurer
+    policy_record  = await _get_policy_by_insurer(db, insurer)
+    policy_context = {
+        "policy_id":      policy_record.policy_id,
+        "insurer":        policy_record.insurer,
+        "coverage_rules": policy_record.coverage_rules,
+    }
+
+    # Read file bytes once
     file_bytes    = await file.read()
     file.file     = io.BytesIO(file_bytes)
     original_name = file.filename or "upload"
 
-    # Extract and assess before saving — reject garbage before touching disk
     extracted_text = _extract_text_from_file(file_bytes, original_name)
-    policy_context = await _get_latest_policy_context(db)
-    clinical_context, cpt_codes, icd10_codes = _build_clinical_context_from_text(
-        extracted_text, policy_context
+
+    # Use the structured prescription parser (same one used by upload-prescription)
+    # so both routes always return identical patient/clinical data for the same file.
+    from modules.services.prescription_service import (
+        _parse_prescription_from_text,
+        _fallback_cpt,
+        _fallback_icd10,
     )
+    parsed = _parse_prescription_from_text(extracted_text, insurer)
+
+    # Extract CPT and ICD-10 for quality assessment (using parsed values, not raw regex)
+    cpt_codes   = [parsed["cpt_code"]]   if parsed.get("cpt_code")   else []
+    icd10_codes = [parsed["icd10_code"]] if parsed.get("icd10_code") else []
+
     quality = _assess_extraction_quality(
         extracted_text, cpt_codes, icd10_codes, original_name
     )
@@ -799,12 +738,12 @@ async def submit_file_upload(
         raise HTTPException(
             status_code=422,
             detail={
-                "error":              "unreadable_file",
-                "extraction_status":  "failed",
-                "message":            quality["extraction_warning"],
+                "error":             "unreadable_file",
+                "extraction_status": "failed",
+                "message":           quality["extraction_warning"],
                 "guidance": (
-                    "Upload a text-selectable PDF, DOCX, or TXT file that "
-                    "contains clinical prior-authorisation data."
+                    "Upload a text-selectable PDF, DOCX, or TXT file containing "
+                    "clinical prior-authorisation data."
                 ),
             },
         )
@@ -813,45 +752,94 @@ async def submit_file_upload(
         raise HTTPException(
             status_code=422,
             detail={
-                "error":              "irrelevant_file",
-                "extraction_status":  "partial",
-                "message":            quality["extraction_warning"],
+                "error":             "irrelevant_file",
+                "extraction_status": "partial",
+                "message":           quality["extraction_warning"],
                 "guidance": (
-                    "Please upload a clinical PA document containing valid CPT "
-                    "procedure codes and/or ICD-10 diagnosis codes."
+                    "Upload a clinical PA document containing valid CPT procedure codes "
+                    "and/or ICD-10 diagnosis codes."
                 ),
             },
         )
 
-    # File is valid — save it to disk now
+    # Save file to disk after validation passes
     file.file = io.BytesIO(file_bytes)
     original_name, saved_path = await _save_upload(file, subfolder="requests")
 
     print(
-        f"[upload] Extracted {quality['chars_extracted']:,} chars, "
-        f"CPT: {cpt_codes}, ICD-10: {icd10_codes} from '{original_name}'"
+        f"[submit] '{original_name}' → policy '{policy_record.policy_id}' ({insurer}) | "
+        f"patient={parsed['patient_name']!r}, CPT={parsed['cpt_code']}, "
+        f"ICD10={parsed['icd10_code']}, chars={quality['chars_extracted']:,}"
     )
 
-    pa_request = generator.generate_pa_request(
-        policy=clinical_context,
-        approval_likelihood=likelihood,
-    )
-    pa_request["source"]                 = "file_upload"
-    pa_request["filename"]               = original_name
-    pa_request["extracted_text_preview"] = (
-        (extracted_text[:300] + "…") if extracted_text else None
-    )
+    # Build the PA request dict from the ACTUAL parsed prescription data.
+    # This replaces the old generator.generate_pa_request() call which was
+    # producing completely random (and therefore wrong) patient information.
+    import datetime as _dt
+    pa_request = {
+        "request_id": f"PA-{uuid.uuid4().hex[:6].upper()}",
+        "timestamp":  _dt.datetime.now().isoformat(),
+        "source":     "prescription_upload",
+        "filename":   original_name,
+        "insurer":    insurer,
+        "patient": {
+            "patient_id":   parsed.get("patient_id"),
+            "name":         parsed["patient_name"],
+            "age":          parsed["patient_age"],
+            "gender":       parsed["patient_gender"],
+            "insurance_id": parsed.get("insurance_id"),
+        },
+        "requested_procedure": {
+            "cpt_code": parsed["cpt_code"],
+            "name":     parsed["procedure_name"],
+            "category": parsed["procedure_category"],
+        },
+        "diagnosis": {
+            "icd10_code":  parsed["icd10_code"],
+            "description": parsed["diagnosis_desc"],
+        },
+        "clinical_info": {
+            "bmi":                                parsed.get("bmi"),
+            "conservative_therapy_duration_weeks": parsed.get("conservative_therapy_weeks"),
+            "imaging_completed":                  parsed.get("imaging_completed", False),
+            "prerequisites_met":                  parsed.get("prerequisites_met", []),
+        },
+        "requesting_physician": {
+            "name":           parsed.get("physician_name"),
+            "specialty":      parsed.get("physician_specialty"),
+            "license_number": parsed.get("physician_license"),
+        },
+        "coverage_rules":          policy_context["coverage_rules"],
+        "extracted_text_preview":  (extracted_text[:300] + "…") if extracted_text else None,
+    }
 
-    # Embed the full policy coverage_rules for audit and PDF reporting
-    pa_request["coverage_rules"] = policy_context["coverage_rules"]
+    # Get policy rules from cache (warmed at startup) or extract inline
+    policy_rules = get_policy_rules()
+    if not policy_rules:
+        policy_rules = extractor.extract_policy_rules(
+            {"coverage_rules": policy_context["coverage_rules"]}
+        )
 
-    features  = engineer.create_features(pa_request, get_policy_rules())
+    features  = engineer.create_features(pa_request, policy_rules)
     routing   = router.route_case(features)
-    reasoning = _build_reasoning(routing, source="file_upload", extraction_quality=quality)
+    reasoning = _build_reasoning(
+        routing,
+        source="prescription_upload",
+        extraction_quality={
+            **quality,
+            "cpt_codes_found":   cpt_codes,
+            "icd10_codes_found": icd10_codes,
+        },
+        policy_insurer=insurer,
+    )
 
     record = await _persist_result(
-        db, pa_request, routing, source="file_upload",
-        uploaded_filename=original_name, uploaded_file_path=saved_path,
+        db, pa_request, routing,
+        source="prescription_upload",
+        uploaded_filename=original_name,
+        uploaded_file_path=saved_path,
+        policy_id_used=policy_record.policy_id,
+        policy_insurer=insurer,
     )
 
     stats        = await live_stats(db)
@@ -866,12 +854,16 @@ async def submit_file_upload(
         "request":            pa_request,
         "features":           features,
         "stats":              stats,
-        "record_id":          record.id,
         "extraction_status":  quality["extraction_status"],
         "extraction_warning": quality["extraction_warning"],
         "chars_extracted":    quality["chars_extracted"],
         "cpt_codes_found":    cpt_codes,
         "icd10_codes_found":  icd10_codes,
+        "policy_used": {
+            "policy_id": policy_record.policy_id,
+            "insurer":   policy_record.insurer,
+            "num_rules": policy_record.num_rules,
+        },
     }
 
 
@@ -882,6 +874,8 @@ async def _persist_result(
     source:             str,
     uploaded_filename:  Optional[str],
     uploaded_file_path: Optional[str],
+    policy_id_used:     Optional[str] = None,
+    policy_insurer:     Optional[str] = None,
 ) -> ValidationResult:
     """Write a ValidationResult row and return the refreshed ORM object."""
     patient = pa_request.get("patient", {})
@@ -907,14 +901,14 @@ async def _persist_result(
         approve_probability = routing["approve_probability"],
         deny_probability    = routing["deny_probability"],
         explanation         = routing["explanation"],
+        policy_id_used      = policy_id_used,
+        policy_insurer      = policy_insurer,
         source              = source,
         uploaded_filename   = uploaded_filename,
         uploaded_file_path  = uploaded_file_path,
-        # full_request_json now contains coverage_rules (all 5 CPT blocks)
         full_request_json   = pa_request,
         full_routing_json   = routing,
     )
-
     db.add(record)
     await db.commit()
     await db.refresh(record)
@@ -932,7 +926,6 @@ async def list_submissions(
     """Return stored validation results, newest first, with download_url."""
     limit  = min(limit, 1000)
     query  = select(ValidationResult).order_by(ValidationResult.created_at.desc())
-
     if tier:
         query = query.where(ValidationResult.routing_tier == tier)
 
@@ -944,7 +937,6 @@ async def list_submissions(
         d = r.to_dict()
         d["download_url"] = f"{base_url.rstrip('/')}/api/download/request/{r.id}"
         rows.append(d)
-
     return rows
 
 
@@ -958,9 +950,8 @@ async def get_result_or_404(db: AsyncSession, result_id: int) -> ValidationResul
         raise HTTPException(
             status_code=404,
             detail=(
-                f"No submission found with result_id={result_id}.  "
-                "Use the 'result_id' value from the /api/submit-request response, "
-                "not the request_id (PA-XXXXXX) string field."
+                f"No submission found with result_id={result_id}. "
+                "Use the 'result_id' value from the /api/submit-request response."
             ),
         )
     return record
@@ -971,3 +962,18 @@ async def reset_all_results(db: AsyncSession) -> None:
     from sqlalchemy import delete
     await db.execute(delete(ValidationResult))
     await db.commit()
+
+
+async def get_available_insurers(db: AsyncSession) -> list:
+    """Return list of insurers that have at least one policy in the DB."""
+    result = await db.execute(
+        select(Policy.insurer, Policy.policy_id, Policy.num_rules)
+        .distinct(Policy.insurer)
+        .order_by(Policy.insurer, Policy.created_at.desc())
+    )
+    rows = result.all()
+    seen = {}
+    for insurer, policy_id, num_rules in rows:
+        if insurer not in seen:
+            seen[insurer] = {"insurer": insurer, "policy_id": policy_id, "num_rules": num_rules}
+    return list(seen.values())

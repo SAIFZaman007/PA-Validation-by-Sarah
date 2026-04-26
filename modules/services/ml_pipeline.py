@@ -23,7 +23,7 @@ try:
 except FileNotFoundError as exc:
     router = None
     print(f"[ML][WARNING] Model not loaded — {exc}")
-    print("[ML]          Run: python src/ml/train_model_simple.py")
+    print("[ML]          Run: python src/ml/train_model.py")
 
 # ── In-memory policy rules cache ─────────────────────────────────────────────
 #

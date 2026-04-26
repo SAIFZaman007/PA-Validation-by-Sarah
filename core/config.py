@@ -68,6 +68,7 @@ class Settings(BaseSettings):
         return [o.strip() for o in self.CORS_ORIGINS.split(",") if o.strip()]
 
     # ── Uploads ───────────────────────────────────────────────────────────────
+    @property                          # ← FIX: was a plain method, not a property
     def upload_dir(self) -> Path:
         d = BACKEND_DIR / "uploads"
         d.mkdir(parents=True, exist_ok=True)

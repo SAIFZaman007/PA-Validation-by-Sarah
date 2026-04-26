@@ -1,5 +1,5 @@
 """
-Submission routes — PA request validation and history endpoints.
+Submission routes — PA validation and history endpoints.
 """
 
 import re
@@ -10,68 +10,82 @@ from fastapi.responses    import Response
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
+from modules.schemas.prescription import VALID_INSURERS
 from modules.services.submission_service import (
     generate_validation_report_bytes,
+    get_available_insurers,
     get_result_or_404,
     list_submissions,
     live_stats,
     reset_all_results,
-    submit_autogenerate,
-    submit_file_upload,
+    submit_prescription_upload,
 )
 
 router = APIRouter(prefix="/api", tags=["Submissions"])
 
-@router.post("/submit-request", summary="Submit a PA request for ML validation")
+
+@router.post(
+    "/submit-request",
+    summary="Submit a prescription PDF for ML PA validation",
+)
 async def api_submit_request(
-    request:    Request,
-    db:         AsyncSession = Depends(get_db),
-    file:       UploadFile   = File(default=None),
-    likelihood: str          = Form(default="random"),
+    request: Request,
+    db:      AsyncSession = Depends(get_db),
+    file:    UploadFile   = File(..., description="Prescription PDF to validate"),
+    insurer: str          = Form(
+        ...,
+        description=(
+            "Insurer name — the policy for this insurer is automatically loaded. "
+            f"Valid values: {', '.join(VALID_INSURERS)}"
+        ),
+    ),
 ):
     """
-    Validate a PA request and return the routing decision.
+    **Upload a prescription PDF + select an insurer** to validate a PA request.
 
-    The endpoint accepts **two modes**:
+    **What happens under the hood:**
+    1. The prescription PDF is uploaded and text is extracted.
+    2. The system automatically reads the most recent policy for the selected insurer.
+    3. The prescription is cross-checked against the policy's coverage rules.
+    4. The ML pipeline (Logistic Regression) produces a routing decision.
+    5. A detailed validation report is generated and stored.
 
-    **Mode 1 — Auto-generate** (no file attached, likelihood from dropdown):
-      - Dropdown options: `random` | `high` | `medium` | `low`
-      - A synthetic PA request is generated from the latest loaded policy.
-      - The result is stored permanently in the database.
+    **Key response fields:**
+    - `result_id`    — DB primary key. Use with `GET /api/download/request/{result_id}` for PDF.
+    - `download_url` — Direct link to the PDF validation report.
+    - `routing`      — Decision: `auto_approve` | `auto_deny` | `manual_review`.
+    - `reasoning`    — Plain-English explanation of the clinical decision.
+    - `policy_used`  — The policy that was matched and evaluated.
 
-    **Mode 2 — File upload** (PDF, DOCX, or TXT attached):
-      - The clinical document is saved to `uploads/requests/`.
-      - Text is extracted from the document (PDF via pdfplumber).
-      - CPT and ICD-10 codes are parsed from the extracted text.
-      - **If the file is unreadable or contains no clinical codes, the system
-        returns HTTP 422 with a clear error — it will NOT process garbage or
-        irrelevant files.**
-
-    **Key response fields (both modes):**
-      - `result_id`     — **DB primary key for this submission** (e.g. 7, 8, 9).
-                          Use this value with `GET /api/download/request/{result_id}`
-                          to download the validation result PDF.
-                          ⚠ Do NOT confuse with `request_id` (PA-XXXXXX string).
-      - `download_url`  — Direct link to the validation result PDF.
-                          Works for both auto-generated and file-upload submissions.
-      - `reasoning`     — Plain-English explanation of the decision:
-                          how confident the model is and what to do next.
+    **Note:** The same prescription + insurer combination always produces the same
+    prediction (deterministic model). Download the PDF at any time for an identical report.
     """
-    base_url = str(request.base_url)
-
-    if file is not None and file.filename:
-        return await submit_file_upload(
-            db=db,
-            file=file,
-            likelihood=likelihood,
-            base_url=base_url,
-        )
-
-    return await submit_autogenerate(
+    return await submit_prescription_upload(
         db=db,
-        likelihood=likelihood,
-        base_url=base_url,
+        file=file,
+        insurer=insurer,
+        base_url=str(request.base_url),
     )
+
+
+@router.get("/insurers-with-policies", summary="List insurers that have an active policy")
+async def api_get_insurers_with_policies(db: AsyncSession = Depends(get_db)):
+    """
+    Return the list of insurers for which at least one policy exists in the database.
+
+    Use this to populate the insurer dropdown on the Submissions page before
+    calling POST /api/submit-request.
+    """
+    insurers = await get_available_insurers(db)
+    return {
+        "success":  True,
+        "insurers": insurers,
+        "message":  (
+            f"{len(insurers)} insurer(s) with active policies. "
+            "Generate or upload policies for additional insurers via the Policies section."
+        ),
+    }
+
 
 @router.get(
     "/download/request/{result_id}",
@@ -82,32 +96,13 @@ async def download_request_file(
     db:        AsyncSession = Depends(get_db),
 ):
     """
-    Download a formatted PDF validation result report for any submission.
+    Download a formatted PDF validation report for any submission.
 
-    **`result_id` is the `result_id` returned by `POST /api/submit-request`.**
-    It is the database row number (e.g. 7) — NOT the `request_id` string
-    (PA-XXXXXX) shown in the request details.
-
-    Available for **both** submission modes:
-      - Auto-generated submissions → full PDF report of the validation result.
-      - File-upload submissions    → full PDF report (also references the
-                                     uploaded document filename).
-
-    The PDF report includes:
-      - result_id prominently highlighted (so you always know the right ID)
-      - Routing decision with colour-coded tier (approve / deny / review)
-      - Confidence and probability scores
-      - Plain-English reasoning and guidance
-      - Patient, procedure, and diagnosis details
-
-    The `Content-Disposition: attachment` header forces the browser to
-    save the PDF to the Downloads folder.
-
-    Returns HTTP 404 when `result_id` does not exist in the database.
+    `result_id` is the database row ID returned by `POST /api/submit-request`.
+    The PDF includes the routing decision, probability scores, reasoning,
+    patient/procedure/diagnosis data, and all policy coverage rules evaluated.
     """
     record = await get_result_or_404(db, result_id)
-
-    # Generate the PDF validation result report on demand — nothing is stored
     pdf_bytes = generate_validation_report_bytes(record)
 
     safe_req_id = re.sub(
@@ -122,6 +117,7 @@ async def download_request_file(
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
+
 @router.get("/submissions", summary="List all stored validation results")
 async def api_list_submissions(
     request: Request,
@@ -135,8 +131,10 @@ async def api_list_submissions(
     """
     Return stored validation results, newest first.
 
-    Each record includes a `download_url` — a direct link to the PDF
-    validation result report for that submission.
+    Each record includes:
+    - `download_url` — direct link to the PDF validation report.
+    - `policy_id_used` — which policy was evaluated for this submission.
+    - `routing_tier` — the ML decision tier.
     """
     rows = await list_submissions(
         db=db,
@@ -144,11 +142,32 @@ async def api_list_submissions(
         limit=limit,
         tier=tier,
     )
-    return {"success": True, "submissions": rows}
+    return {"success": True, "submissions": rows, "count": len(rows)}
+
+
+@router.get(
+    "/submissions/{result_id}",
+    summary="Get a single validation result by ID",
+)
+async def api_get_submission(
+    result_id: int,
+    request:   Request,
+    db:        AsyncSession = Depends(get_db),
+):
+    """Fetch a single validation result record by its database ID."""
+    record = await get_result_or_404(db, result_id)
+    d = record.to_dict()
+    d["download_url"] = f"{str(request.base_url).rstrip('/')}/api/download/request/{record.id}"
+    return {"success": True, "submission": d}
+
 
 @router.get("/stats", summary="Live routing statistics")
 async def api_stats(db: AsyncSession = Depends(get_db)):
-    """Live routing statistics polled by the Home page and Analytics Dashboard."""
+    """
+    Live routing statistics — polled by the dashboard and analytics pages.
+
+    Returns total counts, automation rate, time saved, and per-insurer breakdown.
+    """
     stats     = await live_stats(db)
     total     = stats["total_requests"]
     automated = stats["auto_approved"] + stats["auto_denied"]
@@ -158,10 +177,12 @@ async def api_stats(db: AsyncSession = Depends(get_db)):
         "stats":           stats,
         "automation_rate": rate,
         "time_saved_min":  automated * 15,
+        "by_insurer":      stats.get("by_insurer", []),
     }
+
 
 @router.post("/reset-stats", summary="Delete all validation results (demo only)")
 async def api_reset_stats(db: AsyncSession = Depends(get_db)):
-    """FOR DEMO AND TESTING ONLY. Add auth before exposing in production."""
+    """FOR DEMO AND TESTING ONLY. Add authentication before exposing in production."""
     await reset_all_results(db)
     return {"success": True, "message": "All validation results cleared."}

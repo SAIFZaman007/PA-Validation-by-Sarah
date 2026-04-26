@@ -1,7 +1,8 @@
 """
 Confidence-based Case Router for the PA Validation System.
 
-Loads a trained sklearn model from models/ and routes each PA case to:
+Loads the trained Logistic Regression pipeline from models/ and routes
+each PA case to one of three tiers:
   - auto_approve   (high confidence approval)
   - auto_deny      (high confidence denial)
   - manual_review  (low or medium confidence)
@@ -13,8 +14,6 @@ from pathlib import Path
 import joblib
 import pandas as pd
 
-# Make backend root importable so core.config can be found.
-# src/router/case_router.py  ->  src/  ->  backend/
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from core.config import MODELS_DIR, ROUTER_THRESHOLDS
@@ -25,12 +24,10 @@ class CaseRouter:
 
     def __init__(self, model_path: Path = None):
         """
-        Load the trained model from disk.
+        Load the trained model/pipeline from disk.
 
-        Args:
-            model_path: Explicit path to a .joblib file.
-                        When omitted, searches MODELS_DIR for the logistic
-                        regression model first, then any .joblib file.
+        Searches MODELS_DIR for the logistic regression model first,
+        then any .joblib file as a fallback.
         """
         if model_path is None:
             preferred = MODELS_DIR / "logistic_regression_model.joblib"
@@ -41,21 +38,20 @@ class CaseRouter:
                 if not candidates:
                     raise FileNotFoundError(
                         f"No trained model found in {MODELS_DIR}. "
-                        "Run: python src/ml/train_model_simple.py"
+                        "Run: python src/ml/train_model.py"
                     )
                 model_path = candidates[0]
 
-        print(f"Loading model from {model_path}...")
+        print(f"Loading model from {model_path} …")
         model_data = joblib.load(model_path)
 
-        self.model         = model_data["model"]
+        # model_data["model"] may be a bare sklearn estimator OR a Pipeline
+        self._pipeline     = model_data["model"]
         self.feature_names = model_data["feature_names"]
         self.model_name    = model_data["model_name"]
         self.high_threshold= ROUTER_THRESHOLDS["high_confidence"]
         self.low_threshold = ROUTER_THRESHOLDS["low_confidence"]
 
-        # Three-line startup summary — shows exactly what was loaded and at
-        # what thresholds, which is useful for verifying config in the console.
         print(f"  Loaded {self.model_name} model")
         print(f"  High confidence threshold: {self.high_threshold}")
         print(f"  Low confidence threshold:  {self.low_threshold}")
@@ -76,14 +72,14 @@ class CaseRouter:
             }
         """
         features_df   = pd.DataFrame([features_dict])[self.feature_names]
-        prediction    = self.model.predict(features_df)[0]
-        probabilities = self.model.predict_proba(features_df)[0]
-        confidence    = probabilities[prediction]
+        prediction    = self._pipeline.predict(features_df)[0]
+        probabilities = self._pipeline.predict_proba(features_df)[0]
+        confidence    = float(probabilities[int(prediction)])
 
         return {
             "prediction":          int(prediction),
             "prediction_label":    "Approve" if prediction == 1 else "Deny",
-            "confidence":          float(confidence),
+            "confidence":          confidence,
             "approve_probability": float(probabilities[1]),
             "deny_probability":    float(probabilities[0]),
         }
@@ -102,7 +98,7 @@ class CaseRouter:
         """
         pred       = self.predict_with_confidence(features_dict)
         confidence = pred["confidence"]
-        label      = pred["prediction_label"]   # "Approve" or "Deny"
+        label      = pred["prediction_label"]
 
         if confidence >= self.high_threshold:
             if label == "Approve":
@@ -113,10 +109,10 @@ class CaseRouter:
                 explanation = f"High confidence ({confidence:.1%}) denial prediction"
         elif confidence >= self.low_threshold:
             tier, action, color = "manual_review", "MANUAL REVIEW", "yellow"
-            explanation = f"Medium confidence ({confidence:.1%}) - needs human review"
+            explanation = f"Medium confidence ({confidence:.1%}) — needs human review"
         else:
             tier, action, color = "manual_review", "MANUAL REVIEW", "orange"
-            explanation = f"Low confidence ({confidence:.1%}) - needs careful review"
+            explanation = f"Low confidence ({confidence:.1%}) — needs careful review"
 
         return {
             "tier":                tier,

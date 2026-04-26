@@ -60,15 +60,15 @@ class FeatureEngineer:
         
         # Feature 6: BMI (if available)
         bmi = pa_request.get('clinical_info', {}).get('bmi')
-        features['bmi'] = bmi if bmi else 30.0  # Default to normal BMI
+        features['bmi'] = bmi if (bmi is not None and bmi > 0) else 30.0  
         
         # Feature 7: Conservative therapy duration
         therapy_weeks = pa_request.get('clinical_info', {}).get('conservative_therapy_duration_weeks')
-        features['therapy_duration_weeks'] = therapy_weeks if therapy_weeks else 0
+        features['therapy_duration_weeks'] = therapy_weeks if (therapy_weeks is not None and therapy_weeks >= 0) else 0
         
         # Feature 8: Imaging completed
         imaging = pa_request.get('clinical_info', {}).get('imaging_completed')
-        features['imaging_completed'] = 1 if imaging else 0
+        features['imaging_completed'] = 1 if imaging is True else 0
         
         # Feature 9-10: Procedure category (one-hot encoded)
         category = pa_request.get('requested_procedure', {}).get('category', '')
@@ -100,9 +100,11 @@ class FeatureEngineer:
             return 1  # No requirements = pass
         
         requirements = matching_rule['numeric_requirements']
-        patient_age = pa_request.get('patient', {}).get('age', 0)
-        patient_bmi = pa_request.get('clinical_info', {}).get('bmi', 30)
-        therapy_weeks = pa_request.get('clinical_info', {}).get('conservative_therapy_duration_weeks', 0)
+        patient_age = pa_request.get('patient', {}).get('age', 0) or 0
+        patient_bmi = pa_request.get('clinical_info', {}).get('bmi')
+        patient_bmi = patient_bmi if (patient_bmi is not None and patient_bmi > 0) else 30
+        therapy_weeks = pa_request.get('clinical_info', {}).get('conservative_therapy_duration_weeks')
+        therapy_weeks = therapy_weeks if (therapy_weeks is not None and therapy_weeks >= 0) else 0
         
         # Check age requirement
         if 'min_age' in requirements:
@@ -271,5 +273,5 @@ if __name__ == "__main__":
     print(df.describe())
     
     print("\n" + "=" * 80)
-    print("✅ FEATURE ENGINEERING COMPLETE")
+    print("FEATURE ENGINEERING COMPLETE")
     print("=" * 80)
